@@ -1,0 +1,49 @@
+.header {
+    height: 70px;
+    background-color: #000;
+    color: #fff;
+}
+
+.header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header__logo {
+    padding-left: 25px;
+    margin: auto 0;
+    width: 28%;
+}
+
+.header__inner input {
+    height: 40px;
+    width: 28%;
+    border: solid 1px #000;
+    border-radius: 4px;
+    padding-left: 20px;
+}
+
+.header__nav-list {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.nav__link {
+    text-decoration: none;
+    color: #fff;
+    margin-right: 20px;
+    vertical-align: middle;
+}
+
+.nav__button {
+    border: solid 1px #000;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    height: 40px;
+    width: 70px;
+    margin-right: 20px;
+    font-size: 16px;
+}
