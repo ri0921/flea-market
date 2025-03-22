@@ -1,0 +1,41 @@
+.tabs {
+    display: flex;
+    margin-top: 30px;
+    padding-left: 7%;
+    border-bottom: solid 2px #5F5F5F;
+}
+
+.tab-button {
+    padding-left: 50px;
+    color: #5F5F5F;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.tab-content {
+    margin: 0 3%;
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    width: 100%;
+}
+
+.list-card {
+    width: 25%;
+    margin-top: 30px;
+}
+
+.list-card img {
+    width: 90%;
+    border-radius: 4px;
+
+}
+
+.image-title {
+    margin: 5px 0 30px;
+    width: 90%;
+    font-size: 20px;
+}
