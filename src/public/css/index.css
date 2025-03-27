@@ -5,11 +5,18 @@
     border-bottom: solid 2px #5F5F5F;
 }
 
-.tab-button {
+.tabs a {
     padding-left: 50px;
-    color: #5F5F5F;
     text-decoration: none;
     font-size: 20px;
+}
+
+.tab-suggest {
+    color: #FF0000;
+}
+
+.tab-mylist {
+    color: #5F5F5F;
 }
 
 .tab-content {
@@ -31,7 +38,11 @@
 .list-card img {
     width: 90%;
     border-radius: 4px;
+}
 
+.list-card a {
+    text-decoration: none;
+    color: #000;
 }
 
 .image-title {

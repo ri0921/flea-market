@@ -11,23 +11,40 @@
 </head>
 
 <body>
+@if (request()->is('login') || request()->is('register'))
     <header class="header">
         <div class="header__inner">
             <h1 class="header__logo">
                 <img src="{{ asset('logo.svg') }}" alt="logo" width="100%">
             </h1>
-            @if (!request()->is('auth/*'))
+        </div>
+    </header>
+@else
+    <header class="header">
+        <div class="header__inner">
+            <h1 class="header__logo">
+                <img src="{{ asset('logo.svg') }}" alt="logo" width="100%">
+            </h1>
             <input type="text" placeholder="なにをお探しですか？">
             <nav class="header__nav">
                 <ul class="header__nav-list">
-                    <li><a class="nav__link" href="">ログアウト</a></li>
-                    <li><a class="nav__link" href="">マイページ</a></li>
-                    <li><button class="nav__button" onclick="location.href=''">出品</button></li>
+                    @if (Auth::check())
+                    <li>
+                        <form action="/logout" method="post">
+                            @csrf
+                            <button class="nav__auth" type="submit">ログアウト</button>
+                        </form>
+                    </li>
+                    @else
+                    <li><a class="nav__link" href="/login">ログイン</a></li>
+                    @endif
+                    <li><a class="nav__link" href="/mypage">マイページ</a></li>
+                    <li><button class="nav__button" onclick="location.href='/sell'">出品</button></li>
                 </ul>
             </nav>
-            @endif
         </div>
     </header>
+@endif
 
     <main>
         @yield('content')

@@ -15,14 +15,16 @@
                 <input class="form__input" type="text" name="name" value="{{ old('name') }}">
                 <div class="form__error">
                     @error('name')
+                    {{ $message }}
                     @enderror
                 </div>
             </div>
             <div class="form__group">
                 <label class="form__label" for="email">メールアドレス</label>
-                <input class="form__input" type="email" name="email" value="{{ old('email') }}">
+                <input class="form__input" type="text" name="email" value="{{ old('email') }}">
                 <div class="form__error">
                     @error('email')
+                    {{ $message }}
                     @enderror
                 </div>
             </div>
@@ -31,14 +33,16 @@
                 <input class="form__input" type="password" name="password" value="{{ old('password') }}">
                 <div class="form__error">
                     @error('password')
+                    {{ $message }}
                     @enderror
                 </div>
             </div>
             <div class="form__group">
-                <label class="form__label" for="password_confirm">確認用パスワード</label>
-                <input class="form__input" type="password" name="password_confirm" value="{{ old('password_confirm') }}">
+                <label class="form__label" for="password_confirmation">確認用パスワード</label>
+                <input class="form__input" type="password" name="password_confirmation" value="{{ old('password_confirmation') }}">
                 <div class="form__error">
-                    @error('password_confirm')
+                    @error('password_confirmation')
+                    {{ $message }}
                     @enderror
                 </div>
             </div>

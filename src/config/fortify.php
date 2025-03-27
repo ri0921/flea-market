@@ -157,4 +157,9 @@ return [
         ]),
     ],
 
+    'redirects' => [
+        'logout' => config('app.url') . '/login',
+        'register' => config('app.url') . '/mypage/profile',
+    ],
+
 ];

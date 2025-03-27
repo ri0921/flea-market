@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            <button class="purchase__button" type="button" onclick="location.href=''">購入手続きへ</button>
+            <button class="purchase__button" type="button" onclick="location.href='/purchase'">購入手続きへ</button>
 
             <div class="content__group">
                 <p class="group__title">商品説明</p>
@@ -73,7 +73,7 @@
                     <div class="comments-list">
                         <div class="comment__user">
                             <div class="user-image">
-                                <img src="{{ asset('default.png') }}" alt="">
+                                <img src="{{ asset('img/default.png') }}" alt="プロフィール画像">
                             </div>
                             <div class="user-name">admin</div>
                         </div>
