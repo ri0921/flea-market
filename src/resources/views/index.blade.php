@@ -7,14 +7,16 @@
 @section('content')
 <div class="main">
     <div class="tabs">
-        <a class="tab-button" href="">おすすめ</a>
-        <a class="tab-button" href="">マイリスト</a>
+        <a class="tab-suggest" href="/">おすすめ</a>
+        <a class="tab-mylist" href="">マイリスト</a>
     </div>
     <div class="tab-content">
         <ul class="list">
             <li class="list-card">
-                <img src="{{ asset('test-image.png') }}" alt="商品画像" width="100%">
-                <p class="image-title">商品名</p>
+                <a href="/item">
+                    <img src="{{ asset('test-image.png') }}" alt="商品画像" width="100%">
+                    <p class="image-title">商品名</p>
+                </a>
             </li>
             <li class="list-card">
                 <img src="{{ asset('test-image.png') }}" alt="商品画像">

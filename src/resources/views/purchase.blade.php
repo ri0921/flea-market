@@ -29,7 +29,7 @@
             <div class="order__group">
                 <div class="group__row">
                     <p class="order__group-p">配送先</p>
-                    <a href="">変更する</a>
+                    <a href="/purchase/address">変更する</a>
                 </div>
                 <div class="destination">
                     <div class="post_code">〒XXX-YYYY</div>

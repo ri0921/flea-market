@@ -11,5 +11,13 @@ class ItemController extends Controller
         return view('index');
     }
 
-    
+    public function exhibit()
+    {
+        return view('exhibition');
+    }
+
+    public function show()
+    {
+        return view('item');
+    }
 }
