@@ -11,6 +11,11 @@ class ProfileController extends Controller
         return view('profile');
     }
 
+    public function create(Request $request)
+    {
+        
+    }
+
     public function mypage()
     {
         return view('mypage');
