@@ -2,58 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Laravel\Fortify\Contracts\CreatesNewUsers;
-use Laravel\Fortify\Contracts\RegisterResponse;
-use Laravel\Fortify\Contracts\RegisterViewResponse;
 use App\Http\Requests\RegisterRequest;
-
+use App\Actions\Fortify\CreateNewUser;
 
 class RegisterController extends Controller
 {
-    /**
-     * The guard implementation.
-     *
-     * @var \Illuminate\Contracts\Auth\StatefulGuard
-     */
-    protected $guard;
+    protected $createNewUser;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @param  \Illuminate\Contracts\Auth\StatefulGuard
-     * @return void
-     */
-    public function __construct(StatefulGuard $guard)
+    public function __construct(CreateNewUser $createNewUser)
     {
-        $this->guard = $guard;
+        $this->createNewUser = $createNewUser;
     }
 
     /**
-     * Show the registration view.
+     * 新しいユーザーを登録する
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Laravel\Fortify\Contracts\RegisterViewResponse
+     * @param  RegisterRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function create(RegisterRequest $request): RegisterViewResponse
+    public function register(RegisterRequest $request)
     {
-        return app(RegisterViewResponse::class);
-    }
+        // CreateNewUserサービスを使用してユーザーを作成
+        $user = $this->createNewUser->create($request);
 
-    /**
-     * Create a new registered user.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Laravel\Fortify\Contracts\CreatesNewUsers  $creator
-     * @return \Laravel\Fortify\Contracts\RegisterResponse
-     */
-    public function store(RegisterRequest $request, CreatesNewUsers $creator): RegisterResponse
-    {
-        event(new Registered($user = $creator->create($request->all())));
+        // ユーザー登録後の処理（ログインなど）
+        auth()->login($user);
 
-        return app(RegisterResponse::class);
+        // ホームにリダイレクト
+        return view('profile');
     }
 }

@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
 
@@ -26,6 +25,7 @@ Route::get('item', [ItemController::class, 'show']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/mypage/profile', [ProfileController::class, 'index']);
+    Route::post('/mypage/profile', [ProfileController::class, 'create']);
     Route::get('/mypage', [ProfileController::class, 'mypage']);
     Route::get('/sell', [ItemController::class, 'exhibit']);
     Route::get('/purchase', [PurchaseController::class, 'purchase']);
