@@ -12,4 +12,12 @@ class Like extends Model
     protected $guarded = [
         'id',
     ];
+
+    public function profile(){
+        return $this->belongsTo('App\Models\Profile');
+    }
+
+    public function item(){
+        return $this->belongsTo('App\Models\Item');
+    }
 }

@@ -12,4 +12,16 @@ class Purchase extends Model
     protected $guarded = [
         'id',
     ];
+
+    public function profile(){
+        return $this->belongsTo('App\Models\Profile');
+    }
+
+    public function address(){
+        return $this->belongsTo('App\Models\Address');
+    }
+
+    public function item(){
+        return $this->belongsTo('App\Models\Item');
+    }
 }
