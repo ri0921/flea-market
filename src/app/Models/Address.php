@@ -12,4 +12,12 @@ class Address extends Model
     protected $guarded = [
         'id',
     ];
+
+    public function profiles(){
+        return $this->belongsTo('App\Models\Profile');
+    }
+
+    public function purchases(){
+        return $this->hasMany('App\Models\Purchase');
+    }
 }

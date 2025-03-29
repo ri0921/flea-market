@@ -16,7 +16,19 @@ class Item extends Model
     public function profile(){
         return $this->belongsTo('App\Models\Profile');
     }
-    public function item_categories(){
-        return $this->belongsToMany(Category::class);
+    public function categories(){
+        return $this->belongsToMany(Category::class, 'category_item', 'item_id', 'category_id');
+    }
+
+    public function likes(){
+        return $this->hasMany('App\Models\Like');
+    }
+
+    public function comments(){
+        return $this->hasMany('App\Models\Comment');
+    }
+
+    public function purchase(){
+        return $this->hasOne('App\Models\Purchase');
     }
 }
