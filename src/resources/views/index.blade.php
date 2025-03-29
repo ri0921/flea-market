@@ -12,28 +12,14 @@
     </div>
     <div class="tab-content">
         <ul class="list">
+            @foreach ($items as $item)
             <li class="list-card">
                 <a href="/item">
-                    <img src="{{ asset('test-image.png') }}" alt="商品画像" width="100%">
-                    <p class="image-title">商品名</p>
+                    <img src="{{ $item['image'] }}" alt="商品画像" width="100%">
+                    <p class="image-title">{{ $item['name'] }}</p>
                 </a>
             </li>
-            <li class="list-card">
-                <img src="{{ asset('test-image.png') }}" alt="商品画像">
-                <p class="image-title">商品名</p>
-            </li>
-            <li class="list-card">
-                <img src="{{ asset('test-image.png') }}" alt="商品画像">
-                <p class="image-title">商品名</p>
-            </li>
-            <li class="list-card">
-                <img src="{{ asset('test-image.png') }}" alt="商品画像">
-                <p class="image-title">商品名</p>
-            </li>
-            <li class="list-card">
-                <img src="{{ asset('test-image.png') }}" alt="商品画像">
-                <p class="image-title">商品名</p>
-            </li>
+            @endforeach
         </ul>
     </div>
 </div>
