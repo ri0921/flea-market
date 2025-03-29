@@ -25,7 +25,7 @@ Route::get('item', [ItemController::class, 'show']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/mypage/profile', [ProfileController::class, 'index']);
-    Route::post('/mypage/profile', [ProfileController::class, 'setup']);
+    Route::post('/mypage/profile', [ProfileController::class, 'store']);
     Route::get('/mypage', [ProfileController::class, 'mypage']);
     Route::get('/sell', [ItemController::class, 'exhibit']);
     Route::get('/purchase', [PurchaseController::class, 'purchase']);
