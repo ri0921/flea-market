@@ -14,21 +14,21 @@ class Item extends Model
     ];
 
     public function profile(){
-        return $this->belongsTo('App\Models\Profile');
+        return $this->belongsTo(Profile::class);
     }
     public function categories(){
         return $this->belongsToMany(Category::class, 'category_item', 'item_id', 'category_id');
     }
 
     public function likes(){
-        return $this->hasMany('App\Models\Like');
+        return $this->hasMany(Like::class);
     }
 
     public function comments(){
-        return $this->hasMany('App\Models\Comment');
+        return $this->hasMany(Comment::class);
     }
 
     public function purchase(){
-        return $this->hasOne('App\Models\Purchase');
+        return $this->hasOne(Purchase::class);
     }
 }

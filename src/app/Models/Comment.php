@@ -14,10 +14,10 @@ class Comment extends Model
     ];
 
     public function profile(){
-        return $this->belongsTo('App\Models\Profile');
+        return $this->belongsTo(Profile::class);
     }
 
     public function item(){
-        return $this->belongsTo('App\Models\Item');
+        return $this->belongsTo(Item::class);
     }
 }

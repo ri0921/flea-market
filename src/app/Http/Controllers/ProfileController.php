@@ -11,9 +11,19 @@ class ProfileController extends Controller
         return view('profile');
     }
 
-    public function create(Request $request)
+    public function setup(Request $request)
     {
+        $user = Auth::user();
         
+        $user->name = $request->input('name');
+        $user->image = $request->input('image');
+        $user->post_code = $request->input('post_code');
+        $user->address = $request->input('address');
+        $user->building = $request->input('building');
+
+        $form = $request->all();
+        Profile::create($form);
+        return redirect('/');
     }
 
     public function mypage()

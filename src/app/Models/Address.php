@@ -14,10 +14,10 @@ class Address extends Model
     ];
 
     public function profiles(){
-        return $this->belongsTo('App\Models\Profile');
+        return $this->belongsTo(Profile::class);
     }
 
     public function purchases(){
-        return $this->hasMany('App\Models\Purchase');
+        return $this->hasMany(Purchase::class);
     }
 }
