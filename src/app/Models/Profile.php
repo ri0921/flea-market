@@ -14,26 +14,26 @@ class Profile extends Model
     ];
 
     public function user(){
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
 
     public function address(){
-        return $this->hasMany('App\Models\Address');
+        return $this->hasMany(Address::class);
     }
 
     public function likes(){
-        return $this->hasMany('App\Models\Like');
+        return $this->hasMany(Like::class);
     }
 
     public function comments(){
-        return $this->hasMany('App\Models\Comment');
+        return $this->hasMany(Comment::class);
     }
 
     public function items(){
-        return $this->hasMany('App\Models\Item');
+        return $this->hasMany(Item::class);
     }
 
     public function purchases(){
-        return $this->hasMany('App\Models\Purchase');
+        return $this->hasMany(Purchase::class);
     }
 }
