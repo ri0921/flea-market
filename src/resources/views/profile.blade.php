@@ -15,11 +15,17 @@
                 <input class="upload__image" type="file" accept="image/*" name="image" id="file-input">
                 <label class="upload__button" for="file-input">画像を選択する</label>
             </div>
+            <div class="form__error">
+                @error('image')
+                {{ $message }}
+                @enderror
+            </div>
             <div class="form__group">
                 <label class="form__label" for="name">ユーザー名</label>
                 <input class="form__input" type="text" name="name" value="{{ old('name') }}">
                 <div class="form__error">
                     @error('name')
+                    {{ $message }}
                     @enderror
                 </div>
             </div>
@@ -28,6 +34,7 @@
                 <input class="form__input" type="text" name="post_code" value="{{ old('post_code') }}">
                 <div class="form__error">
                     @error('post_code')
+                    {{ $message }}
                     @enderror
                 </div>
             </div>
@@ -36,6 +43,7 @@
                 <input class="form__input" type="text" name="address" value="{{ old('address') }}">
                 <div class="form__error">
                     @error('address')
+                    {{ $message }}
                     @enderror
                 </div>
             </div>
