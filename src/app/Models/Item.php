@@ -17,7 +17,7 @@ class Item extends Model
         return $this->belongsTo(Profile::class);
     }
     public function categories(){
-        return $this->belongsToMany(Category::class, 'category_item', 'item_id', 'category_id');
+        return $this->belongsToMany(Category::class, 'item_categories', 'item_id', 'category_id');
     }
 
     public function likes(){
