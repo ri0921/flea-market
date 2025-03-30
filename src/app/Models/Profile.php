@@ -22,11 +22,11 @@ class Profile extends Model
     }
 
     public function likes(){
-        return $this->hasMany(Like::class);
+        return $this->hasMany(Like::class, 'profile_id');
     }
 
     public function comments(){
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class, 'profile_id');
     }
 
     public function items(){
