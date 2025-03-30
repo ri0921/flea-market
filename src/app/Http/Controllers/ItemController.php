@@ -26,6 +26,13 @@ class ItemController extends Controller
         return view('item', compact('item'));
     }
 
+    public function search(Request $request)
+    {
+        $items = Item::KeywordSearch($request->keyword)->get();
+        $tab = request('tab');
+        return view('index', compact('items', 'tab'));
+    }
+
     public function exhibit()
     {
         return view('exhibition');
