@@ -17,12 +17,15 @@
     width: 28%;
 }
 
-.header__inner input {
+.search-form {
     height: 40px;
     width: 28%;
     border: solid 1px #000;
     border-radius: 4px;
-    padding-left: 20px;
+}
+.search-form input {
+    height: 40px;
+    width: 100%;
 }
 
 .header__nav-list {

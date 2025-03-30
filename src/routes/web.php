@@ -22,6 +22,7 @@ Route::get('/', function () {
 
 Route::get('/', [ItemController::class, 'index']);
 Route::get('/item/:{item}', [ItemController::class, 'show']);
+Route::get('/search', [ItemController::class, 'search']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/mypage/profile', [ProfileController::class, 'index']);

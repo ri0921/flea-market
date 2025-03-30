@@ -25,7 +25,11 @@
             <h1 class="header__logo">
                 <img src="{{ asset('logo.svg') }}" alt="logo" width="100%">
             </h1>
-            <input type="text" placeholder="なにをお探しですか？">
+            <form class="search-form" action="/search" method="get">
+                @csrf
+                <input type="text" name="keyword" placeholder="なにをお探しですか？" value="{{ request('keyword') }}">
+                <input type="submit" style="display:none;">
+            </form>
             <nav class="header__nav">
                 <ul class="header__nav-list">
                     @if (Auth::check())
