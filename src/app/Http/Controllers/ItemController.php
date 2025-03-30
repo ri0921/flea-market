@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\Like;
 use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
@@ -31,6 +32,24 @@ class ItemController extends Controller
         $items = Item::KeywordSearch($request->keyword)->get();
         $tab = request('tab');
         return view('index', compact('items', 'tab'));
+    }
+
+    public function like($id)
+    {
+        $user = Auth::user();
+        Like::create([
+            'item_id' => $id,
+            'profile_id' => $user->profile->id,
+        ]);
+        return redirect()->back();
+    }
+
+    public function unlike($id)
+    {
+        $user = Auth::user();
+        $like = Like::where('item_id', $id)->where('profile_id', $user->profile->id)->first();
+        $like->delete();
+        return redirect()->back();
     }
 
     public function exhibit()
