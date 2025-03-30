@@ -27,6 +27,9 @@ Route::get('/search', [ItemController::class, 'search']);
 Route::middleware('auth')->group(function () {
     Route::get('/mypage/profile', [ProfileController::class, 'index']);
     Route::post('/mypage/profile', [ProfileController::class, 'store']);
+    Route::get('/item/:{item}/like', [ItemController::class, 'like']);
+    Route::get('/item/:{item}/unlike', [ItemController::class, 'unlike']);
+
     Route::get('/mypage', [ProfileController::class, 'mypage']);
     Route::get('/sell', [ItemController::class, 'exhibit']);
     Route::get('/purchase', [PurchaseController::class, 'purchase']);

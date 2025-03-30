@@ -25,15 +25,23 @@
             <div class="action">
                 <div class="action__item">
                     <div class="action__icon">
-                        <img src="{{ asset('likes.png') }}" alt="いいね">
+                        @if(Auth::check() && $item->liked_by_profile())
+                        <a href="/item/:{{ $item->id }}/unlike">
+                            <img src="{{ asset('like.svg') }}" alt="いいね">
+                        </a>
+                        @else
+                        <a href="/item/:{{ $item->id }}/like">
+                            <img src="{{ asset('unlike.svg') }}" alt="いいね">
+                        </a>
+                        @endif
                     </div>
                     <div class="action__count">
-                        3
+                        {{ $item->likes->count() }}
                     </div>
                 </div>
                 <div class="action__item">
                     <div class="action__icon">
-                        <img src="{{ asset('comments.png') }}" alt="コメント">
+                        <img src="{{ asset('comments.svg') }}" alt="コメント">
                     </div>
                     <div class="action__count">
                         1

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Item extends Model
 {
@@ -36,6 +37,21 @@ class Item extends Model
     {
         if (!empty($keyword)) {
             $query->where('name', 'like', '%'. $keyword. '%');
+        }
+    }
+
+    public function liked_by_profile()
+    {
+        $user = Auth::user();
+        $id = $user->profile->id;
+        $likers = array();
+        foreach($this->likes as $like) {
+            array_push($likers, $like->profile_id);
+        }
+        if (in_array($id, $likers)) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
