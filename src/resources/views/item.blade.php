@@ -8,19 +8,19 @@
 <div class="main">
     <div class="column">
         <div class="item-image">
-            <img src="{{ asset('test-image.png') }}" alt="商品画像" width="100%">
+            <img src="{{ asset($item->image) }}" alt="商品画像" width="100%">
         </div>
     </div>
     <div class="column">
         <div class="content">
             <div class="item-name">
-                商品名
+                {{ $item->name }}
             </div>
             <div class="brand">
-                ブランド名
+                {{ $item->brand ?? 'unknown' }}
             </div>
             <div class="price">
-                ¥<span>47,000</span>(税込)
+                ¥<span>{{ number_format($item->price) }}</span>(税込)
             </div>
             <div class="action">
                 <div class="action__item">
@@ -45,7 +45,7 @@
             <div class="content__group">
                 <p class="group__title">商品説明</p>
                 <div class="group__inner">
-                商品の状態は良好です。傷もありません。<br>購入後、即発送します。
+                    {{ $item->description }}
                 </div>
             </div>
             <div class="content__group">
@@ -54,16 +54,14 @@
                     <div class="info">
                         <div class="info__text">カテゴリー</div>
                         <ul>
-                            <li>洋服</li>
-                            <li>ファッション</li>
-                            <li>本</li>
-                            <li>あああ</li>
-                            <li>ああああ</li>
+                            @foreach ($item->categories as $category)
+                            <li>{{ $category->content }}</li>
+                            @endforeach
                         </ul>
                     </div>
                     <div class="info">
                         <div class="info__text">商品の状態</div>
-                        <div class="condition">良好</div>
+                        <div class="condition">{{ $item->condition }}</div>
                     </div>
                 </div>
             </div>
