@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CommentRequest;
 use App\Models\Item;
 use App\Models\Like;
+use App\Models\Comment;
+use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
@@ -24,7 +27,9 @@ class ItemController extends Controller
     public function show($id)
     {
         $item = Item::findOrFail($id);
-        return view('item', compact('item'));
+        $comments = $item->comments()->with('profile')->get();
+        $profiles = Profile::all();
+        return view('item', compact('item', 'comments', 'profiles'));
     }
 
     public function search(Request $request)
@@ -49,6 +54,17 @@ class ItemController extends Controller
         $user = Auth::user();
         $like = Like::where('item_id', $id)->where('profile_id', $user->profile->id)->first();
         $like->delete();
+        return redirect()->back();
+    }
+
+    public function comment(CommentRequest $request, $id)
+    {
+        $user = Auth::user();
+        Comment::create([
+            'item_id' => $id,
+            'profile_id' => $user->profile->id,
+            'detail' => $request->detail,
+        ]);
         return redirect()->back();
     }
 
