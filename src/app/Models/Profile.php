@@ -36,4 +36,9 @@ class Profile extends Model
     public function purchases(){
         return $this->hasMany(Purchase::class);
     }
+
+    public function likedItems()
+    {
+        return $this->hasManyThrough(Item::class, Like::class, 'profile_id', 'id', 'id', 'item_id');
+    }
 }
