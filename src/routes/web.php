@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/mypage/profile', [ProfileController::class, 'store']);
     Route::get('/item/:{item}/like', [ItemController::class, 'like']);
     Route::get('/item/:{item}/unlike', [ItemController::class, 'unlike']);
+    Route::post('/item/:{item}', [ItemController::class, 'comment']);
 
     Route::get('/mypage', [ProfileController::class, 'mypage']);
     Route::get('/sell', [ItemController::class, 'exhibit']);

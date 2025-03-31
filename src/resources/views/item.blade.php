@@ -44,11 +44,11 @@
                         <img src="{{ asset('comments.svg') }}" alt="コメント">
                     </div>
                     <div class="action__count">
-                        1
+                        {{ $item->comments->count() }}
                     </div>
                 </div>
             </div>
-            <button class="purchase__button" type="button" onclick="location.href='/purchase'">購入手続きへ</button>
+            <button class="purchase__button" type="button" onclick="location.href='/purchase/:{{ $item->id }}'">購入手続きへ</button>
 
             <div class="content__group">
                 <p class="group__title">商品説明</p>
@@ -74,21 +74,23 @@
                 </div>
             </div>
             <div class="content__group">
-                <p class="group__title">コメント(1)</p>
+                <p class="group__title">コメント({{ $item->comments->count() }})</p>
                 <div class="group__inner">
                     <div class="comments-list">
+                        @foreach($comments as $comment)
                         <div class="comment__user">
                             <div class="user-image">
-                                <img src="{{ asset('img/default.png') }}" alt="プロフィール画像">
+                                <img src="{{ asset($comment->profile->image ? $comment->profile->image : 'img/default.png') }}" alt="プロフィール画像">
                             </div>
-                            <div class="user-name">admin</div>
+                            <div class="user-name">{{ $comment->profile->name }}</div>
                         </div>
                         <div class="comment__detail">
-                            こちらにコメントが入ります。
+                            {{ $comment->detail }}
                         </div>
+                        @endforeach
                     </div>
                     <div class="comment__form">
-                        <form action="" method="post">
+                        <form action="/item/:{{ $item->id }}" method="post">
                             @csrf
                             <label class="comment__label">商品へのコメント</label>
                             <textarea class="comment__textarea" name="detail"></textarea>
