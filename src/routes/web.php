@@ -30,10 +30,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/item/:{item}/like', [ItemController::class, 'like']);
     Route::get('/item/:{item}/unlike', [ItemController::class, 'unlike']);
     Route::post('/item/:{item}', [ItemController::class, 'comment']);
+    Route::get('/purchase/:{item}', [PurchaseController::class, 'purchase']);
+    Route::get('/purchase/address/:{item}', [PurchaseController::class, 'edit']);
+    Route::post('/purchase/:{item}', [PurchaseController::class, 'update']);
 
     Route::get('/mypage', [ProfileController::class, 'mypage']);
     Route::get('/sell', [ItemController::class, 'exhibit']);
-    Route::get('/purchase', [PurchaseController::class, 'purchase']);
     Route::get('/mypage/profile', [ProfileController::class, 'edit']);
-    Route::get('/purchase/address', [PurchaseController::class, 'edit']);
 });
