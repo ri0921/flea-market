@@ -21,20 +21,21 @@ Route::get('/', function () {
 });
 
 Route::get('/', [ItemController::class, 'index']);
-Route::get('/item/:{item}', [ItemController::class, 'show']);
+Route::get('/item/{item}', [ItemController::class, 'show']);
 Route::get('/search', [ItemController::class, 'search']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/mypage/profile', [ProfileController::class, 'index']);
     Route::post('/mypage/profile', [ProfileController::class, 'store']);
-    Route::get('/item/:{item}/like', [ItemController::class, 'like']);
-    Route::get('/item/:{item}/unlike', [ItemController::class, 'unlike']);
-    Route::post('/item/:{item}', [ItemController::class, 'comment']);
-    Route::get('/purchase/:{item}', [PurchaseController::class, 'purchase']);
-    Route::get('/purchase/address/:{item}', [PurchaseController::class, 'edit']);
-    Route::post('/purchase/:{item}', [PurchaseController::class, 'update']);
+    Route::get('/item/{item}/like', [ItemController::class, 'like']);
+    Route::get('/item/{item}/unlike', [ItemController::class, 'unlike']);
+    Route::post('/item/{item}', [ItemController::class, 'comment']);
+    Route::get('/purchase/{item}', [PurchaseController::class, 'purchase']);
+    Route::get('/purchase/address/{item}', [PurchaseController::class, 'edit']);
+    Route::post('/purchase/{item}', [PurchaseController::class, 'update']);
+    Route::get('/sell', [ItemController::class, 'exhibit']);
+    Route::post('/sell', [ItemController::class, 'store']);
 
     Route::get('/mypage', [ProfileController::class, 'mypage']);
-    Route::get('/sell', [ItemController::class, 'exhibit']);
     Route::get('/mypage/profile', [ProfileController::class, 'edit']);
 });

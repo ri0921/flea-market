@@ -43,12 +43,12 @@ class Item extends Model
     public function liked_by_profile()
     {
         $user = Auth::user();
-        $id = $user->profile->id;
+        $profile = $user->profile;
         $likers = array();
         foreach($this->likes as $like) {
             array_push($likers, $like->profile_id);
         }
-        if (in_array($id, $likers)) {
+        if (in_array($profile->id, $likers)) {
             return true;
         } else {
             return false;

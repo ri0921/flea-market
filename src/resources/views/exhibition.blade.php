@@ -8,7 +8,7 @@
 <div class="main">
     <h1 class="title">商品の出品</h1>
     <div class="form">
-        <form action="" method="POST">
+        <form action="/sell" method="POST">
             @csrf
             <h2 class="form__title">商品の詳細</h2>
             <div class="form__group">
@@ -26,18 +26,12 @@
             <div class="form__group">
                 <p class="form__content">カテゴリー</p>
                 <div class="form__checkbox">
-                    <label class="checkbox-item"><input type="checkbox" name="category_id" value=""><span>ファッション</span></label>
-                    <label class="checkbox-item"><input type="checkbox" name="category_id"><span>家電</span></label>
-                    <label class="checkbox-item"><input type="checkbox" name="category_id"><span>インテリア</span></label>
-                    <label class="checkbox-item"><input type="checkbox" name="category_id"><span>レディース</span></label>
-                    <label class="checkbox-item"><input type="checkbox" name="category_id"><span>メンズ</span></label>
-                    <label class="checkbox-item"><input type="checkbox" name="category_id"><span>コスメ</span></label>
-                    <label class="checkbox-item"><input type="checkbox" name="category_id"><span>本</span></label>
-                    <label class="checkbox-item"><input type="checkbox" name="category_id"><span>ゲーム</span></label>
-                    <label class="checkbox-item"><input type="checkbox" name="category_id"><span>スポーツ</span></label>
+                    @foreach($categories as $category)
+                    <label class="checkbox-item"><input type="checkbox" name="categories[]" value="{{ $category->id }}" {{ in_array($category->id, old('categories', [])) ? 'checked' : '' }}><span>{{ $category->content }}</span></label>
+                    @endforeach
                 </div>
                 <div class="form__error">
-                    @error('category_id')
+                    @error('categories')
                     {{ $message }}
                     @enderror
                 </div>
@@ -45,12 +39,16 @@
             <div class="form__group">
                 <p class="form__content">商品の状態</p>
                 <div class="form__select">
-                    <select name="condition_id">
-                        <option value="" selected>選択してください</option>
+                    <select name="condition">
+                        <option value="" hidden selected>選択してください</option>
+                        <option value="良好" {{ old('condition') == '良好' ? 'selected' : '' }}>良好</option>
+                        <option value="目立った傷や汚れなし" {{ old('condition') == '目立った傷や汚れなし' ? 'selected' : '' }}>目立った傷や汚れなし</option>
+                        <option value="やや傷や汚れあり" {{ old('condition') == 'やや傷や汚れあり' ? 'selected' : '' }}>やや傷や汚れあり</option>
+                        <option value="状態が悪い" {{ old('condition') == '状態が悪い' ? 'selected' : '' }}>状態が悪い</option>
                     </select>
                 </div>
                 <div class="form__error">
-                    @error('condition_id')
+                    @error('condition')
                     {{ $message }}
                     @enderror
                 </div>
@@ -61,6 +59,7 @@
                 <input class="form__input" type="text" name="name" value="{{ old('name') }}">
                 <div class="form__error">
                     @error('name')
+                    {{ $message }}
                     @enderror
                 </div>
             </div>
@@ -70,9 +69,10 @@
             </div>
             <div class="form__group">
                 <p class="form__content">商品の説明</p>
-                <textarea class="form__textarea" name="description" value="{{ old('description') }}"></textarea>
+                <textarea class="form__textarea" name="description">{{ old('description') }}</textarea>
                 <div class="form__error">
                     @error('description')
+                    {{ $message }}
                     @enderror
                 </div>
             </div>
@@ -84,6 +84,7 @@
                 </div>
                 <div class="form__error">
                     @error('price')
+                    {{ $message }}
                     @enderror
                 </div>
             </div>
