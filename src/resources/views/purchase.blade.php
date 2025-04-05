@@ -16,7 +16,7 @@
         </div>
         <div class="order__group">
             <p class="order__group-p">支払い方法</p>
-            <form class="form__select" action="/purchase/:{{ $item->id }}" method="get">
+            <form class="form__select" action="/purchase/{{ $item->id }}" method="get">
                 @csrf
                 <select class="payment-method" name="payment" onchange="submit(this.form)">
                     <option value="" {{ old('payment', session('payment')) == '' ? 'selected' : '' }}>選択してください</option>
@@ -28,7 +28,7 @@
         <div class="order__group">
             <div class="group__row">
                 <p class="order__group-p">配送先</p>
-                <a href="/purchase/address/:{{ $item->id }}">変更する</a>
+                <a href="/purchase/address/{{ $item->id }}">変更する</a>
                 </div>
             <div class="destination">
                 <div class="post_code">{{ $address['post_code'] }}</div>

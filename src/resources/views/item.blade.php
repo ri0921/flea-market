@@ -26,11 +26,11 @@
                 <div class="action__item">
                     <div class="action__icon">
                         @if(Auth::check() && $item->liked_by_profile())
-                        <a href="/item/:{{ $item->id }}/unlike">
+                        <a href="/item/{{ $item->id }}/unlike">
                             <img src="{{ asset('like.svg') }}" alt="いいね">
                         </a>
                         @else
-                        <a href="/item/:{{ $item->id }}/like">
+                        <a href="/item/{{ $item->id }}/like">
                             <img src="{{ asset('unlike.svg') }}" alt="いいね">
                         </a>
                         @endif
@@ -48,7 +48,7 @@
                     </div>
                 </div>
             </div>
-            <button class="purchase__button" type="button" onclick="location.href='/purchase/:{{ $item->id }}'">購入手続きへ</button>
+            <button class="purchase__button" type="button" onclick="location.href='/purchase/{{ $item->id }}'">購入手続きへ</button>
 
             <div class="content__group">
                 <p class="group__title">商品説明</p>
@@ -90,7 +90,7 @@
                         @endforeach
                     </div>
                     <div class="comment__form">
-                        <form action="/item/:{{ $item->id }}" method="post">
+                        <form action="/item/{{ $item->id }}" method="post">
                             @csrf
                             <label class="comment__label">商品へのコメント</label>
                             <textarea class="comment__textarea" name="detail"></textarea>

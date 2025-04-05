@@ -14,7 +14,7 @@
         <ul class="list">
             @foreach ($items as $item)
             <li class="list-card">
-                <a href="/item/:{{ $item->id }}">
+                <a href="/item/{{ $item->id }}">
                     <img src="{{ $item->image }}" alt="商品画像" width="100%">
                     <p class="image-title">{{ $item->name }}</p>
                 </a>

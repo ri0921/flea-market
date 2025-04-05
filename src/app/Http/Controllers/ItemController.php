@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CommentRequest;
+use App\Http\Requests\ExhibitionRequest;
 use App\Models\Item;
 use App\Models\Like;
 use App\Models\Comment;
 use App\Models\Profile;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
@@ -70,6 +72,18 @@ class ItemController extends Controller
 
     public function exhibit()
     {
-        return view('exhibition');
+        $categories = Category::all();
+        return view('exhibition', compact('categories'));
+    }
+
+    public function store(ExhibitionRequest $request)
+    {
+        $exhibition = $request->only(['name', 'brand', 'price', 'image', 'condition', 'description']);
+        $user = Auth::user();
+        Item::create([
+            $exhibition,
+            'profile_id' => $user->profile->id,
+        ]);
+        return view('index');
     }
 }
