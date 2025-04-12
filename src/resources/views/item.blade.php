@@ -9,6 +9,9 @@
     <div class="column">
         <div class="item-image">
             <img src="{{ Storage::url($item->image) }}" alt="商品画像" width="100%">
+            @if($item->is_sold)
+                <div class="sold-stamp">Sold</div>
+            @endif
         </div>
     </div>
     <div class="column">
@@ -48,7 +51,11 @@
                     </div>
                 </div>
             </div>
-            <button class="purchase__button" type="button" onclick="location.href='/purchase/{{ $item->id }}'">購入手続きへ</button>
+            @if(!$item->is_sold)
+                <button class="purchase__button" type="button" onclick="location.href='/purchase/{{ $item->id }}'">購入手続きへ</button>
+            @else
+                <button class="disabled__button" type="button" disabled>購入手続きへ</button>
+            @endif
 
             <div class="content__group">
                 <p class="group__title">商品説明</p>
@@ -89,6 +96,7 @@
                         </div>
                         @endforeach
                     </div>
+                    @if(!$item->is_sold)
                     <div class="comment__form">
                         <form action="/item/{{ $item->id }}" method="post">
                             @csrf
@@ -97,6 +105,7 @@
                             <button class="comment__button" type="submit">コメントを送信する</button>
                         </form>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

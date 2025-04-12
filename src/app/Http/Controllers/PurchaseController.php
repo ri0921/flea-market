@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AddressRequest;
+use App\Http\Requests\PurchaseRequest;
 use App\Models\Item;
 use App\Models\Profile;
 use App\Models\Address;
+use App\Models\Purchase;
 
 class PurchaseController extends Controller
 {
@@ -16,10 +18,10 @@ class PurchaseController extends Controller
         $item = Item::findOrFail($id);
         $user = Auth::user();
         $profile = $user->profile;
-        $payment = session('payment');
-        if ($request->has('payment')) {
-            $payment = $request->input('payment');
-            session(['payment' => $payment]);
+        $payment = session('payment_method');
+        if ($request->has('payment_method')) {
+            $payment = $request->input('payment_method');
+            session(['payment_method' => $payment]);
         }
         $address = session('address');
         if (!$address) {
@@ -45,6 +47,31 @@ class PurchaseController extends Controller
         $profile = $user->profile;
         $address = $request->only(['post_code', 'address', 'building']);
         session(['address' => $address]);
-        return view('purchase', compact('item', 'profile', 'address'));
+        return redirect("/purchase/{$item->id}");
+    }
+
+    public function store(PurchaseRequest $request, $id)
+    {
+        $user = Auth::user();
+        $item = Item::findOrFail($id);
+        $profile = $user->profile;
+
+        $addressData = session('address') ?? [
+            'post_code' => $profile->post_code,
+            'address' => $profile->address,
+            'building' => $profile->building,
+        ];
+        $addressData['profile_id'] = $profile->id;
+        $address = Address::create($addressData);
+
+        $purchaseData = [
+            'profile_id' => $profile->id,
+            'item_id' => $item->id,
+            'address_id' => $address->id,
+            'payment_method' => session('payment_method'),
+        ];
+        Purchase::create($purchaseData);
+        
+        return redirect('/');
     }
 }

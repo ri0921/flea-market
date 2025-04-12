@@ -14,8 +14,11 @@
         <ul class="list">
             @foreach ($items as $item)
             <li class="list-card">
-                <a href="/item/{{ $item->id }}">
+                <a class="item-link" href="/item/{{ $item->id }}">
                     <img class="card__image" src="{{ Storage::url($item->image) }}" alt="商品画像" width="100%">
+                    @if($item->is_sold)
+                        <div class="sold-stamp">Sold</div>
+                    @endif
                     <p class="card__title">{{ $item->name }}</p>
                 </a>
             </li>

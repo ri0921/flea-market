@@ -84,6 +84,14 @@ class ItemController extends Controller
         $exhibition['profile_id'] = $user->profile->id;
         $exhibition['image'] = $request->file('image')->store('item_img', 'public');
         Item::create($exhibition);
-        return redirect('/');
+        return redirect('/mypage?tab=sell');
+    }
+
+    public function sellItems()
+    {
+        $user = Auth::user();
+        $sellItems = $user->profile->sellItems()->latest()->get();
+        $user->profile->sellItems ? $user->profile->sellItems : collect();
+        return view('/mypage?tab=sell', compact('sellItems'));
     }
 }

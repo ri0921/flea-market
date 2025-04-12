@@ -54,4 +54,9 @@ class Item extends Model
             return false;
         }
     }
+
+    public function getIsSoldAttribute()
+    {
+        return $this->purchase()->exists();
+    }
 }
