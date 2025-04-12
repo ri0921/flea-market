@@ -17,6 +17,11 @@
     margin-right: 10%;
 }
 
+.item-image img {
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
 .item-name {
     font-size: 3vw;
     font-weight: bold;
@@ -95,7 +100,7 @@ table {
 }
 
 table,tr {
-    margin: 10% auto;
+    margin: 10% auto 3%;
     border: solid 1px #000;
 }
 
@@ -114,6 +119,13 @@ td {
     font-size: 2.2vw;
 }
 
+.form__error {
+    color: red;
+    font-size: 2vw;
+    margin-bottom: 10%;
+    padding-left: 5%;
+}
+
 .purchase-button {
     font-size: 2.2vw;
     font-weight: bold;
@@ -123,4 +135,5 @@ td {
     border: none;
     border-radius: 5px;
     padding: 3% 0;
+    cursor: pointer;
 }

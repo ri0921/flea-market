@@ -32,7 +32,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/item/{item}', [ItemController::class, 'comment']);
     Route::get('/purchase/{item}', [PurchaseController::class, 'purchase']);
     Route::get('/purchase/address/{item}', [PurchaseController::class, 'edit']);
-    Route::post('/purchase/{item}', [PurchaseController::class, 'update']);
+    Route::post('/purchase/address/{item}', [PurchaseController::class, 'update']);
+    Route::post('/purchase/{item}', [PurchaseController::class, 'store']);
     Route::get('/sell', [ItemController::class, 'exhibit']);
     Route::post('/sell', [ItemController::class, 'store']);
     Route::get('/mypage', [ProfileController::class, 'mypage']);
