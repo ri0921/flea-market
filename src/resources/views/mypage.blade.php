@@ -8,9 +8,9 @@
 <div class="main">
     <div class="profile">
         <div class="user-image">
-            <img class="rounded-circle" src="{{ asset('img/default.png') }}" alt="プロフィール画像">
+            <img class="rounded-circle" src="{{ $profile->image ? Storage::url($profile->image) : asset('img/default.png') }}" alt="プロフィール画像">
         </div>
-        <div class="user-name">ユーザー名</div>
+        <div class="user-name">{{ $profile->name }}</div>
         <div class="profile-link">
             <button class="profile-link__button" type="button" onclick="location.href='/mypage/profile'">プロフィールを編集</button>
         </div>

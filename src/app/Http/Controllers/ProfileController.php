@@ -7,35 +7,45 @@ use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProfileRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-    public function index()
-    {
-        return view('profile');
-    }
-
-    public function store(ProfileRequest $request)
+    public function edit()
     {
         $user = Auth::user();
-        $profile = Profile::create([
-            'user_id' => $user->id,
-            'name' => $request->input('name'),
-            'post_code' => $request->input('post_code'),
-            'address' => $request->input('address'),
-            'building' => $request->input('building'),
-        ]);
+        $profile = $user->profile;
+        return view('profile', compact('profile'));
+    }
 
-        return redirect('/');
+    public function update(ProfileRequest $request)
+    {
+        $user = Auth::user();
+        $profile = $user->profile;
+        $data = $request->all();
+        if ($user->profile) {
+            if ($request->hasFile('image')) {
+                if ($profile->image && Storage::exists('public/'. $profile->image)) {
+                Storage::delete('public/'. $profile->image);
+                }
+                $data['image'] = $request->file('image')->store('profile_img', 'public');
+            }
+            Profile::find($profile->id)->update($data);
+            return redirect('/mypage');
+        } else {
+            if ($request->hasFile('image')) {
+                $data['image'] = $request->file('image')->store('profile_img', 'public');
+            }
+            $data['user_id'] = $user->id;
+            Profile::create($data);
+            return redirect('/?tab=mylist');
+        }
     }
 
     public function mypage()
     {
-        return view('mypage');
-    }
-
-    public function edit()
-    {
-        return view('profile');
+        $user = Auth::user();
+        $profile = $user->profile;
+        return view('mypage', compact('profile'));
     }
 }
