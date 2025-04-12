@@ -16,14 +16,6 @@
     color: #FF0000;
 }
 
-.tab-suggest {
-    
-}
-
-.tab-mylist {
-    
-}
-
 .tab-content {
     margin: 0 3%;
 }
@@ -42,6 +34,8 @@
 
 .list-card img {
     width: 90%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
     border-radius: 4px;
 }
 

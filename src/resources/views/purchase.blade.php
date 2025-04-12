@@ -9,7 +9,7 @@
     <div class="order-details">
         <div class="order__group">
             <div class="item-image">
-                <img src="{{ asset($item->image) }}" alt="商品画像" width="100%">
+                <img src="{{ Storage::url($item->image) }}" alt="商品画像" width="100%">
             </div>
             <p class="item-name">{{ $item->name }}</p>
             <div class="item-price"><span>¥</span>{{ number_format($item->price) }}</div>

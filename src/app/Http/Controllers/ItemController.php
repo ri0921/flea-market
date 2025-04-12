@@ -11,6 +11,7 @@ use App\Models\Comment;
 use App\Models\Profile;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ItemController extends Controller
 {
@@ -21,7 +22,7 @@ class ItemController extends Controller
         if ($tab !== 'mylist') {
             $items = Item::all();
         } else {
-            $items = $user ? $user->profile->likedItems : collect();
+            $items = $user && $user->profile && $user->profile->likedItems ? $user->profile->likedItems : collect();
         }
         return view('index', compact('items', 'tab'));
     }
@@ -78,12 +79,11 @@ class ItemController extends Controller
 
     public function store(ExhibitionRequest $request)
     {
-        $exhibition = $request->only(['name', 'brand', 'price', 'image', 'condition', 'description']);
         $user = Auth::user();
-        Item::create([
-            $exhibition,
-            'profile_id' => $user->profile->id,
-        ]);
-        return view('index');
+        $exhibition = $request->all();
+        $exhibition['profile_id'] = $user->profile->id;
+        $exhibition['image'] = $request->file('image')->store('item_img', 'public');
+        Item::create($exhibition);
+        return redirect('/');
     }
 }

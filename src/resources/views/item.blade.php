@@ -8,7 +8,7 @@
 <div class="main">
     <div class="column">
         <div class="item-image">
-            <img src="{{ asset($item->image) }}" alt="商品画像" width="100%">
+            <img src="{{ Storage::url($item->image) }}" alt="商品画像" width="100%">
         </div>
     </div>
     <div class="column">
@@ -80,7 +80,7 @@
                         @foreach($comments as $comment)
                         <div class="comment__user">
                             <div class="user-image">
-                                <img src="{{ asset($comment->profile->image ? $comment->profile->image : 'img/default.png') }}" alt="プロフィール画像">
+                                <img class="rounded-circle" src="{{ $comment->profile->image ? Storage::url($comment->profile->image) : asset('img/default.png') }}" alt="プロフィール画像">
                             </div>
                             <div class="user-name">{{ $comment->profile->name }}</div>
                         </div>
