@@ -20,7 +20,11 @@ class ItemController extends Controller
         $tab = request('tab');
         $user = Auth::user();
         if ($tab !== 'mylist') {
-            $items = Item::all();
+            if ($user && $user->profile) {
+                $items = Item::where('profile_id', '!=', $user->profile->id)->latest()->get();
+            } else {
+                $items = Item::all();
+            }
         } else {
             $items = $user && $user->profile && $user->profile->likedItems ? $user->profile->likedItems : collect();
         }
@@ -85,13 +89,5 @@ class ItemController extends Controller
         $exhibition['image'] = $request->file('image')->store('item_img', 'public');
         Item::create($exhibition);
         return redirect('/mypage?tab=sell');
-    }
-
-    public function sellItems()
-    {
-        $user = Auth::user();
-        $sellItems = $user->profile->sellItems()->latest()->get();
-        $user->profile->sellItems ? $user->profile->sellItems : collect();
-        return view('/mypage?tab=sell', compact('sellItems'));
     }
 }

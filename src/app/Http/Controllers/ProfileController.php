@@ -46,6 +46,9 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $profile = $user->profile;
-        return view('mypage', compact('profile'));
+        $tab = request('tab', 'sell');
+        $sellItems = $profile->items()->with('purchase')->latest()->get();
+        $buyItems = $profile->purchases()->with('item')->latest()->get();
+        return view('mypage', compact('profile', 'tab', 'sellItems', 'buyItems'));
     }
 }
