@@ -7,8 +7,13 @@
 @section('content')
 <div class="main">
     <div class="tabs">
-        <a class="tab-suggest {{ $tab !== 'mylist' ? 'active' : '' }}" href="/">おすすめ</a>
-        <a class="tab-mylist {{ $tab === 'mylist' ? 'active' : '' }}" href="/?tab=mylist">マイリスト</a>
+        @if(request('keyword'))
+            <a class="tab-suggest {{ $tab !== 'mylist' ? 'active' : '' }}" href="/search?tab=suggest&keyword={{ request('keyword') }}">おすすめ</a>
+            <a class="tab-mylist {{ $tab === 'mylist' ? 'active' : '' }}" href="/search?tab=mylist&keyword={{ request('keyword') }}">マイリスト</a>
+        @else
+            <a class="tab-suggest {{ $tab !== 'mylist' ? 'active' : '' }}" href="/">おすすめ</a>
+            <a class="tab-mylist {{ $tab === 'mylist' ? 'active' : '' }}" href="/?tab=mylist">マイリスト</a>
+        @endif
     </div>
     <div class="tab-content">
         <ul class="list">

@@ -30,6 +30,7 @@
             <form class="search-form" action="/search" method="get">
                 @csrf
                 <input type="text" name="keyword" placeholder="なにをお探しですか？" value="{{ request('keyword') }}">
+                <input type="hidden" name="tab" value="{{ request('tab') }}">
                 <input type="submit" style="display:none;">
             </form>
             <nav class="header__nav">

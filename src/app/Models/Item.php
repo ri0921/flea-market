@@ -38,6 +38,7 @@ class Item extends Model
         if (!empty($keyword)) {
             $query->where('name', 'like', '%'. $keyword. '%');
         }
+        return $query;
     }
 
     public function liked_by_profile()
