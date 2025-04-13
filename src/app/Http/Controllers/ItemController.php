@@ -41,9 +41,23 @@ class ItemController extends Controller
 
     public function search(Request $request)
     {
-        $items = Item::KeywordSearch($request->keyword)->get();
+        $keyword = $request->keyword;
         $tab = request('tab');
-        return view('index', compact('items', 'tab'));
+        $user = Auth::user();
+
+        if ($tab === 'mylist') {
+            $items = $user && $user->profile && $user->profile->likedItems ? $user->profile->likedItems->filter(function ($item) use ($keyword) {
+                return stripos($item->name, $keyword) !== false;
+            }) : collect();
+        } else {
+            if ($user && $user->profile) {
+                $items = Item::where('profile_id', '!=', $user->profile->id)
+                ->KeywordSearch($keyword)->latest()->get();
+            } else {
+                $items = Item::KeywordSearch($keyword)->latest()->get();
+            }
+        }
+        return view('index', compact('items', 'tab', 'keyword'));
     }
 
     public function like($id)
