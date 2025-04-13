@@ -44,6 +44,10 @@
     font-size: 20px;
 }
 
+.tab-button.active {
+    color: #FF0000;
+}
+
 .tab-content {
     margin: 0 5%;
 }
@@ -56,14 +60,38 @@
 }
 
 .list-card {
+    position: relative;
     width: 25%;
     margin-top: 30px;
 }
 
+.item-link {
+    text-decoration: none;
+    color: #000;
+}
+
 .list-card img {
     width: 90%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
     border-radius: 4px;
+}
 
+.sold-stamp {
+    position: absolute;
+    top: 15px;
+    left: -5px;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    font-size: 2vw;
+    padding: 4px 16px;
+    transform: rotate(-45deg);
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    text-transform: uppercase;
+    pointer-events: none;
+    opacity: 0.9;
 }
 
 .image-title {
