@@ -17,12 +17,15 @@
 * (php artisan storage:link)画像出てこなかったら書く
 * php artisan migrate
 * php artisan db:seed
+* composer require stripe/stripe-php
+* .envにStripeキーを追加
 
 
 ## 使用技術
 * PHP 7.4.9
 * Laravel 8.83.8
 * MySQL 8.0.26
+* Stripe ^17.1
 
 
 ## ER図

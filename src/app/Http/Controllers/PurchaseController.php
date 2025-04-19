@@ -10,6 +10,8 @@ use App\Models\Item;
 use App\Models\Profile;
 use App\Models\Address;
 use App\Models\Purchase;
+use Stripe\Stripe;
+use Stripe\Checkout\Session;
 
 class PurchaseController extends Controller
 {
@@ -23,14 +25,13 @@ class PurchaseController extends Controller
             $payment = $request->input('payment_method');
             session(['payment_method' => $payment]);
         }
-        $address = session('address');
-        if (!$address) {
-            $address = [
-                'post_code' => $profile->post_code,
-                'address' => $profile->address,
-                'building' => $profile->building,
-            ];
-        }
+        $address = [
+            'post_code' => $profile->post_code,
+            'address' => $profile->address,
+            'building' => $profile->building,
+        ];
+        session(['address' => $address]);
+        
         return view('purchase', compact('item', 'profile', 'payment', 'address'));
     }
 
@@ -71,7 +72,25 @@ class PurchaseController extends Controller
             'payment_method' => session('payment_method'),
         ];
         Purchase::create($purchaseData);
-        
-        return redirect('/');
+
+        Stripe::setApiKey(config('services.stripe.secret'));
+        $session = \Stripe\Checkout\Session::create([
+            'payment_method_types' => ['card', 'konbini'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'jpy',
+                    'unit_amount' => intval($item->price),
+                    'product_data' => [
+                        'name' => $item->name,
+                    ],
+                ],
+                'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'customer_email' => $user->email,
+            'success_url' => route('checkout.success'),
+            'cancel_url' => route('checkout.cancel'),
+        ]);
+        return redirect($session->url);
     }
 }
