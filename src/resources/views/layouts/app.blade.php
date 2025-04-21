@@ -11,7 +11,7 @@
 </head>
 
 <body>
-@if (request()->is('login') || request()->is('register'))
+@if (request()->is('login') || request()->is('register') || request()->is('email/verify'))
     <header class="header">
         <div class="header__inner">
             <h1 class="header__logo">

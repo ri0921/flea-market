@@ -24,7 +24,7 @@ Route::get('/', [ItemController::class, 'index']);
 Route::get('/item/{item}', [ItemController::class, 'show']);
 Route::get('/search', [ItemController::class, 'search']);
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'verified')->group(function () {
     Route::get('/mypage/profile', [ProfileController::class, 'edit']);
     Route::post('/mypage/profile', [ProfileController::class, 'update']);
     Route::get('/item/{item}/like', [ItemController::class, 'like']);
