@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             CategoriesTableSeeder::class,
             ProfilesTableSeeder::class,
             ItemsTableSeeder::class,
-            ItemCategorySeeder::class,
+            ItemCategoriesTableSeeder::class,
         ]);
     }
 }

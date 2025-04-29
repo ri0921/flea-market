@@ -25,13 +25,11 @@ class PurchaseController extends Controller
             $payment = $request->input('payment_method');
             session(['payment_method' => $payment]);
         }
-        $address = [
+        $address = session('address') ?? [
             'post_code' => $profile->post_code,
             'address' => $profile->address,
             'building' => $profile->building,
         ];
-        session(['address' => $address]);
-        
         return view('purchase', compact('item', 'profile', 'payment', 'address'));
     }
 

@@ -15,12 +15,15 @@ class ProfileFactory extends Factory
      */
     public function definition()
     {
+        $user = User::factory()->create();
+
         return [
-            'user_id' => User::factory(),
-            'name' => User::factory(),
-            'post_code' => $this->faker->postcode,
+            'user_id' => $user->id,
+            'name' => $this->faker->firstName,
+            'image' => $this->faker->imageUrl(640, 480). '.jpg',
+            'post_code' => $this->faker->regexify('\d{3}-\d{4}'),
             'address' => $this->faker->address,
-            'building' => $this->faker->secondaryAddress,
+            'building' => $this->faker->optional()->secondaryAddress,
         ];
     }
 }

@@ -3,9 +3,11 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use App\Models\Item;
+use App\Models\Category;
 
-class ItemCategorySeeder extends Seeder
+class ItemCategoriesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

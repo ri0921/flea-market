@@ -26,7 +26,9 @@ class ItemController extends Controller
                 $items = Item::all();
             }
         } else {
-            $items = $user && $user->profile && $user->profile->likedItems ? $user->profile->likedItems : collect();
+            $items = $user && $user->profile && $user->profile->likedItems ? $user->profile->likedItems->filter(function ($item) use ($user) {
+                return $item->profile_id !== $user->profile->id;
+            }) : collect();
         }
         return view('index', compact('items', 'tab'));
     }
@@ -101,7 +103,8 @@ class ItemController extends Controller
         $exhibition = $request->all();
         $exhibition['profile_id'] = $user->profile->id;
         $exhibition['image'] = $request->file('image')->store('item_img', 'public');
-        Item::create($exhibition);
+        $item = Item::create($exhibition);
+        $item->categories()->attach($request->input('categories'));
         return redirect('/mypage?tab=sell');
     }
 }

@@ -18,30 +18,6 @@
                     <label class="upload__button" for="file-input">画像を選択する</label>
                     <img class="item-image" id="image-preview" style="display: none;">
                 </div>
-                <script>
-    // ファイル入力要素を取得
-    const fileInput = document.getElementById('file-input');
-    const imagePreview = document.getElementById('image-preview');
-
-    // ファイルが選択されたときにプレビューを表示
-    fileInput.addEventListener('change', function(event) {
-        const file = event.target.files[0]; // 選択されたファイル
-
-        // 画像ファイルが選ばれていない場合は何もしない
-        if (file && file.type.startsWith('image/')) {
-            const reader = new FileReader();
-
-            // 画像が読み込まれたときにプレビューを表示
-            reader.onload = function(e) {
-                imagePreview.src = e.target.result; // プレビューに画像を設定
-                imagePreview.style.display = 'block'; // プレビューを表示
-            };
-
-            // 画像ファイルを読み込む
-            reader.readAsDataURL(file);
-        }
-    });
-</script>
                 <div class="form__error">
                     @error('image')
                     {{ $message }}
@@ -119,4 +95,29 @@
         </form>
     </div>
 </div>
+
+<script>
+    // ファイル入力要素を取得
+    const fileInput = document.getElementById('file-input');
+    const imagePreview = document.getElementById('image-preview');
+
+    // ファイルが選択されたときにプレビューを表示
+    fileInput.addEventListener('change', function(event) {
+        const file = event.target.files[0]; // 選択されたファイル
+
+        // 画像ファイルが選ばれていない場合は何もしない
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+
+            // 画像が読み込まれたときにプレビューを表示
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result; // プレビューに画像を設定
+                imagePreview.style.display = 'block'; // プレビューを表示
+            };
+
+            // 画像ファイルを読み込む
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
 @endsection

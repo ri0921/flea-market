@@ -56,6 +56,16 @@ class Item extends Model
         }
     }
 
+    public function getLikesCountAttribute()
+    {
+        return $this->likes()->count();
+    }
+
+    public function getCommentsCountAttribute()
+    {
+        return $this->comments()->count();
+    }
+
     public function getIsSoldAttribute()
     {
         return $this->purchase()->exists();

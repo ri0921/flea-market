@@ -16,8 +16,10 @@ class ItemsTableSeeder extends Seeder
      */
     public function run()
     {
+        $profile = Profile::inRandomOrder()->first();
+
         DB::table('items')->insert([
-            'profile_id' => 1,
+            'profile_id' => $profile->id,
             'name' => '腕時計',
             'brand' => 'EMPORIO ARMANI',
             'price' => 15000,
@@ -26,7 +28,7 @@ class ItemsTableSeeder extends Seeder
             'description' => 'スタイリッシュなデザインのメンズ腕時計',
         ]);
         DB::table('items')->insert([
-            'profile_id' => 1,
+            'profile_id' => $profile->id,
             'name' => 'HDD',
             'price' => 5000,
             'image' => 'item_img/hdd.jpg',
@@ -34,7 +36,7 @@ class ItemsTableSeeder extends Seeder
             'description' => '高速で信頼性の高いハードディスク',
         ]);
         DB::table('items')->insert([
-            'profile_id' => 1,
+            'profile_id' => $profile->id,
             'name' => '玉ねぎ3束',
             'price' => 300,
             'image' => 'item_img/onion.jpg',
@@ -42,7 +44,7 @@ class ItemsTableSeeder extends Seeder
             'description' => '新鮮な玉ねぎ3束のセット',
         ]);
         DB::table('items')->insert([
-            'profile_id' => 1,
+            'profile_id' => $profile->id,
             'name' => '革靴',
             'price' => 4000,
             'image' => 'item_img/leather-shoes.jpg',
@@ -50,7 +52,7 @@ class ItemsTableSeeder extends Seeder
             'description' => 'クラシックなデザインの革靴',
         ]);
         DB::table('items')->insert([
-            'profile_id' => 1,
+            'profile_id' => $profile->id,
             'name' => 'ノートPC',
             'price' => 45000,
             'image' => 'item_img/laptop.jpg',
@@ -58,7 +60,7 @@ class ItemsTableSeeder extends Seeder
             'description' => '高性能なノートパソコン',
         ]);
         DB::table('items')->insert([
-            'profile_id' => 2,
+            'profile_id' => $profile->id,
             'name' => 'マイク',
             'price' => 8000,
             'image' => 'item_img/microphone.jpg',
@@ -66,7 +68,7 @@ class ItemsTableSeeder extends Seeder
             'description' => '高音質のレコーディング用マイク',
         ]);
         DB::table('items')->insert([
-            'profile_id' => 2,
+            'profile_id' => $profile->id,
             'name' => 'ショルダーバッグ',
             'price' => 3500,
             'image' => 'item_img/shoulder-bag.jpg',
@@ -74,7 +76,7 @@ class ItemsTableSeeder extends Seeder
             'description' => 'おしゃれなショルダーバッグ',
         ]);
         DB::table('items')->insert([
-            'profile_id' => 3,
+            'profile_id' => $profile->id,
             'name' => 'タンブラー',
             'price' => 500,
             'image' => 'item_img/tumbler.jpg',
@@ -82,7 +84,7 @@ class ItemsTableSeeder extends Seeder
             'description' => '使いやすいタンブラー',
         ]);
         DB::table('items')->insert([
-            'profile_id' => 3,
+            'profile_id' => $profile->id,
             'name' => 'コーヒーミル',
             'price' => 4000,
             'image' => 'item_img/coffee-mill.jpg',
@@ -90,7 +92,7 @@ class ItemsTableSeeder extends Seeder
             'description' => '手動のコーヒーミル',
         ]);
         DB::table('items')->insert([
-            'profile_id' => 3,
+            'profile_id' => $profile->id,
             'name' => 'メイクセット',
             'price' => 2500,
             'image' => 'item_img/makeup-set.jpg',
