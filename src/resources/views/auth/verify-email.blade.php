@@ -2,6 +2,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/verify-email.css') }}">
+@endsection
 
 @section('content')
 <div class="main">
@@ -12,7 +13,12 @@
         <button class="verify__button-submit">認証はこちらから</button>
     </div>
     <div class="resend-mail">
-        <a class="resend-mail__link" href="">認証メールを再送する</a>
+        <form method="POST" action="/email/verification-notification">
+            @csrf
+            <button type="submit" class="resend-mail__link">
+                認証メールを再送する
+            </button>
+        </form>
     </div>
 </div>
 @endsection
