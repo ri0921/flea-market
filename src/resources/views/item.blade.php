@@ -8,7 +8,7 @@
 <div class="main">
     <div class="column">
         <div class="item-image">
-            <img src="{{ Storage::url($item->image) }}" alt="商品画像" width="100%">
+            <img class="item-image__file" src="{{ Storage::url($item->image) }}" alt="商品画像" width="100%">
             @if($item->is_sold)
                 <div class="sold-stamp">Sold</div>
             @endif
@@ -23,18 +23,18 @@
                 {{ $item->brand ?? 'unknown' }}
             </div>
             <div class="price">
-                ¥<span>{{ number_format($item->price) }}</span>(税込)
+                ¥<span class="price__span">{{ number_format($item->price) }}</span>(税込)
             </div>
             <div class="action">
                 <div class="action__item">
                     <div class="action__icon">
                         @if(Auth::check() && $item->liked_by_profile())
                         <a href="/item/{{ $item->id }}/unlike">
-                            <img src="{{ asset('like.svg') }}" alt="いいね">
+                            <img class="action__icon-image" src="{{ asset('like.svg') }}" alt="いいね">
                         </a>
                         @else
                         <a href="/item/{{ $item->id }}/like">
-                            <img src="{{ asset('unlike.svg') }}" alt="いいね">
+                            <img class="action__icon-image" src="{{ asset('unlike.svg') }}" alt="いいね">
                         </a>
                         @endif
                     </div>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="action__item">
                     <div class="action__icon">
-                        <img src="{{ asset('comments.svg') }}" alt="コメント">
+                        <img class="action__icon-image" src="{{ asset('comments.svg') }}" alt="コメント">
                     </div>
                     <div class="action__count">
                         {{ $item->comments->count() }}
@@ -66,16 +66,16 @@
             <div class="content__group">
                 <p class="group__title">商品の情報</p>
                 <div class="group__inner">
-                    <div class="info">
-                        <div class="info__text">カテゴリー</div>
-                        <ul>
+                    <div class="information">
+                        <div class="information__text">カテゴリー</div>
+                        <ul class="information__category">
                             @foreach ($item->categories as $category)
-                            <li>{{ $category->content }}</li>
+                            <li class="information__category-content">{{ $category->content }}</li>
                             @endforeach
                         </ul>
                     </div>
-                    <div class="info">
-                        <div class="info__text">商品の状態</div>
+                    <div class="information">
+                        <div class="information__text">商品の状態</div>
                         <div class="condition">{{ $item->condition }}</div>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                         @foreach($comments as $comment)
                         <div class="comment__user">
                             <div class="user-image">
-                                <img class="rounded-circle" src="{{ $comment->profile->image ? Storage::url($comment->profile->image) : asset('img/default.png') }}" alt="プロフィール画像">
+                                <img class="user-image__file" src="{{ $comment->profile->image ? Storage::url($comment->profile->image) : asset('img/default.png') }}" alt="プロフィール画像">
                             </div>
                             <div class="user-name">{{ $comment->profile->name }}</div>
                         </div>
@@ -102,6 +102,11 @@
                             @csrf
                             <label class="comment__label">商品へのコメント</label>
                             <textarea class="comment__textarea" name="detail"></textarea>
+                            <div class="form__error">
+                                @error('detail')
+                                {{ $message }}
+                                @enderror
+                            </div>
                             <button class="comment__button" type="submit">コメントを送信する</button>
                         </form>
                     </div>

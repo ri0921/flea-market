@@ -7,13 +7,12 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Profile;
 use App\Models\Item;
-use App\Models\Comment;
 
 class CommentTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_user_can_post_comment()
+    public function testUserCanPostComment()
     {
         $profile = Profile::factory()->create();
         $item = Item::factory()->withCategories(3)->create();
@@ -35,7 +34,7 @@ class CommentTest extends TestCase
         $this->assertEquals(1, $item->fresh()->comments()->count());
     }
 
-    public function test_guest_cannot_post_comment()
+    public function testGuestCannotPostComment()
     {
         $item = Item::factory()->withCategories(3)->create();
         $response = $this->post("/item/{$item->id}", [
@@ -48,7 +47,7 @@ class CommentTest extends TestCase
         ]);
     }
 
-    public function test_comment_is_required()
+    public function testCommentIsRequired()
     {
         $profile = Profile::factory()->create();
         $item = Item::factory()->withCategories(3)->create();
@@ -61,7 +60,7 @@ class CommentTest extends TestCase
         $response->assertSessionHasErrors(['detail']);
     }
 
-    public function test_comment_max_255()
+    public function testCommentMax()
     {
         $profile = Profile::factory()->create();
         $item = Item::factory()->withCategories(3)->create();

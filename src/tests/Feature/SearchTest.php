@@ -20,7 +20,6 @@ class SearchTest extends TestCase
             'name' => 'Orange Juice']);
         Item::factory()->withCategories(3)->create([
             'name' => 'Pineapple']);
-        
         $response = $this->get('/search?tab=suggest&keyword=Apple');
         $response->assertStatus(200);
         $response->assertSee('Apple Juice');
@@ -36,7 +35,6 @@ class SearchTest extends TestCase
             'name' => 'Orange Juice']);
         Item::factory()->withCategories(3)->create([
             'name' => 'Pineapple']);
-        
         $response = $this->get('/search?tab=suggest&keyword=Apple');
         $response->assertStatus(200);
         $response->assertSee('Apple Juice');

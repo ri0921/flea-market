@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Item;
-use App\Models\Category;
 use App\Models\Purchase;
 use App\Models\Profile;
 
@@ -14,7 +13,7 @@ class ItemListTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_all_items()
+    public function testAllItems()
     {
         $items = Item::factory()->withCategories(3)->count(3)->create();
         $response = $this->get('/');
@@ -24,7 +23,7 @@ class ItemListTest extends TestCase
         }
     }
 
-    public function test_sold_items()
+    public function testSoldItems()
     {
         $purchases = Purchase::factory()->count(3)->create();
         $response = $this->get('/');
@@ -35,7 +34,7 @@ class ItemListTest extends TestCase
         }
     }
 
-    public function test_not_see_own_items()
+    public function testNotSeeOwnItems()
     {
         $profile = Profile::factory()->create();
         $item = Item::factory()->withCategories(3)->create(['profile_id' => $profile->id]);

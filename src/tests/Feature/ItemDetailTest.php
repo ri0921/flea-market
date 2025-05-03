@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Item;
-use App\Models\Category;
 use App\Models\Profile;
 use App\Models\Like;
 use App\Models\Comment;
@@ -15,7 +14,7 @@ class ItemDetailTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_example()
+    public function testItemDetail()
     {
         $item = Item::factory()->withCategories(3)->create();
         $profile = Profile::factory()->create();

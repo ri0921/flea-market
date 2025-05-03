@@ -28,7 +28,7 @@
                 <p class="form__content">カテゴリー</p>
                 <div class="form__checkbox">
                     @foreach($categories as $category)
-                    <label class="checkbox-item"><input type="checkbox" name="categories[]" value="{{ $category->id }}" {{ in_array($category->id, old('categories', [])) ? 'checked' : '' }}><span>{{ $category->content }}</span></label>
+                    <label class="checkbox-item"><input class="checkbox-item__input" type="checkbox" name="categories[]" value="{{ $category->id }}" {{ in_array($category->id, old('categories', [])) ? 'checked' : '' }}><span class="checkbox-item__span">{{ $category->content }}</span></label>
                     @endforeach
                 </div>
                 <div class="form__error">
@@ -40,7 +40,7 @@
             <div class="form__group">
                 <p class="form__content">商品の状態</p>
                 <div class="form__select">
-                    <select name="condition">
+                    <select class="form__select-condition" name="condition">
                         <option value="" hidden selected>選択してください</option>
                         <option value="良好" {{ old('condition') == '良好' ? 'selected' : '' }}>良好</option>
                         <option value="目立った傷や汚れなし" {{ old('condition') == '目立った傷や汚れなし' ? 'selected' : '' }}>目立った傷や汚れなし</option>
@@ -97,25 +97,17 @@
 </div>
 
 <script>
-    // ファイル入力要素を取得
     const fileInput = document.getElementById('file-input');
     const imagePreview = document.getElementById('image-preview');
 
-    // ファイルが選択されたときにプレビューを表示
     fileInput.addEventListener('change', function(event) {
-        const file = event.target.files[0]; // 選択されたファイル
-
-        // 画像ファイルが選ばれていない場合は何もしない
+        const file = event.target.files[0];
         if (file && file.type.startsWith('image/')) {
             const reader = new FileReader();
-
-            // 画像が読み込まれたときにプレビューを表示
             reader.onload = function(e) {
-                imagePreview.src = e.target.result; // プレビューに画像を設定
-                imagePreview.style.display = 'block'; // プレビューを表示
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
             };
-
-            // 画像ファイルを読み込む
             reader.readAsDataURL(file);
         }
     });

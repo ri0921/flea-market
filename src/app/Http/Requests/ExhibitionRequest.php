@@ -40,7 +40,7 @@ class ExhibitionRequest extends FormRequest
             'description.required' => '商品の説明を入力してください',
             'description.max' => '商品の説明は255文字以内で入力してください',
             'image.required' => '商品画像をアップロードしてください',
-            'image.mimes' => '',
+            'image.mimes' => '画像はjpeg,pngタイプのファイルを指定してください',
             'categories.required' => 'カテゴリーを選択してください',
             'condition.required' => '商品の状態を選択してください',
             'price.required' => '販売価格を入力してください',

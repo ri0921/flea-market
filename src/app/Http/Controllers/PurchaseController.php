@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\PurchaseRequest;
 use App\Models\Item;
-use App\Models\Profile;
 use App\Models\Address;
 use App\Models\Purchase;
 use Stripe\Stripe;
@@ -25,11 +24,16 @@ class PurchaseController extends Controller
             $payment = $request->input('payment_method');
             session(['payment_method' => $payment]);
         }
-        $address = session('address') ?? [
-            'post_code' => $profile->post_code,
-            'address' => $profile->address,
-            'building' => $profile->building,
-        ];
+        if (!session()->has('address')) {
+            session([
+                'address' => [
+                    'post_code' => $profile->post_code,
+                    'address' => $profile->address,
+                    'building' => $profile->building,
+                ]
+            ]);
+        }
+        $address = session('address');
         return view('purchase', compact('item', 'profile', 'payment', 'address'));
     }
 
@@ -54,12 +58,7 @@ class PurchaseController extends Controller
         $user = Auth::user();
         $item = Item::findOrFail($id);
         $profile = $user->profile;
-
-        $addressData = session('address') ?? [
-            'post_code' => $profile->post_code,
-            'address' => $profile->address,
-            'building' => $profile->building,
-        ];
+        $addressData = session('address');
         $addressData['profile_id'] = $profile->id;
         $address = Address::create($addressData);
 
@@ -72,7 +71,7 @@ class PurchaseController extends Controller
         Purchase::create($purchaseData);
 
         Stripe::setApiKey(config('services.stripe.secret'));
-        $session = \Stripe\Checkout\Session::create([
+        $session = Session::create([
             'payment_method_types' => ['card', 'konbini'],
             'line_items' => [[
                 'price_data' => [

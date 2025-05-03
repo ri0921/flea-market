@@ -14,7 +14,7 @@ class AddressTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_change_address()
+    public function testChangeAddress()
     {
         $profile = Profile::factory()->create();
         $item = Item::factory()->withCategories(3)->create();

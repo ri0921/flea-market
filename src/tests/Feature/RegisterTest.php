@@ -10,7 +10,7 @@ class RegisterTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_name_is_required()
+    public function testNameIsRequired()
     {
         $response = $this->post('/register', [
             'name' => '',
@@ -22,7 +22,7 @@ class RegisterTest extends TestCase
         $response->assertSessionHasErrors(['name' => 'お名前を入力してください']);
     }
 
-    public function test_email_is_required()
+    public function testEmailIsRequired()
     {
         $response = $this->post('/register', [
             'name' => 'ユーザー',
@@ -34,7 +34,7 @@ class RegisterTest extends TestCase
         $response->assertSessionHasErrors(['email' => 'メールアドレスを入力してください']);
     }
 
-    public function test_password_is_required()
+    public function testPasswordIsRequired()
     {
         $response = $this->post('/register', [
             'name' => 'ユーザー',
@@ -46,7 +46,7 @@ class RegisterTest extends TestCase
         $response->assertSessionHasErrors(['password' => 'パスワードを入力してください']);
     }
 
-    public function test_password_min()
+    public function testPasswordMin()
     {
         $response = $this->post('/register', [
             'name' => 'ユーザー',
@@ -58,7 +58,7 @@ class RegisterTest extends TestCase
         $response->assertSessionHasErrors(['password' => 'パスワードは8文字以上で入力してください']);
     }
 
-    public function test_password_confirmation_does_not_match()
+    public function testPasswordConfirmationDoesNotMatch()
     {
         $response = $this->post('/register', [
             'name' => 'ユーザー',
@@ -70,7 +70,7 @@ class RegisterTest extends TestCase
         $response->assertSessionHasErrors(['password_confirmation' => 'パスワードと一致しません']);
     }
 
-    public function test_register_success()
+    public function testRegisterSuccess()
     {
         $response = $this->post('/register', [
             'name' => 'ユーザー',

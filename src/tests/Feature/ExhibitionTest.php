@@ -15,7 +15,7 @@ class ExhibitionTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_exhibit_item()
+    public function testExhibitItem()
     {
         $profile = Profile::factory()->create();
         $this->actingAs($profile->user);
@@ -47,7 +47,7 @@ class ExhibitionTest extends TestCase
             'description' => 'これはサンプルの商品です。',
             'price' => '1000.00',
         ]);
-        $item = \App\Models\Item::latest()->first();
+        $item = Item::latest()->first();
         $this->assertDatabaseHas('item_categories', [
             'item_id' => $item->id,
             'category_id' => $category1->id,

@@ -14,7 +14,7 @@ class MyListTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_like_items()
+    public function testLikeItems()
     {
         $profile = Profile::factory()->create();
         $items = Item::factory()->withCategories(3)->count(5)->create();
@@ -38,7 +38,7 @@ class MyListTest extends TestCase
         }
     }
 
-    public function test_sold_items()
+    public function testSoldItems()
     {
         $profile = Profile::factory()->create();
         $item = Item::factory()->withCategories(3)->create();
@@ -54,7 +54,7 @@ class MyListTest extends TestCase
         $response->assertSee('Sold');
     }
 
-    public function test_not_see_own_items()
+    public function testNotSeeOwnItems()
     {
         $profile = Profile::factory()->create();
         $item = Item::factory()->withCategories(3)->create(['profile_id' => $profile->id]);
@@ -69,7 +69,7 @@ class MyListTest extends TestCase
         $response->assertDontSee($item->name);
     }
 
-    public function test_guest_in_my_list()
+    public function testGuestInMyList()
     {
         $profile = Profile::factory()->create();
         $items = Item::factory()->withCategories(3)->count(3)->create();

@@ -34,11 +34,8 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/purchase/address/{item}', [PurchaseController::class, 'edit']);
     Route::post('/purchase/address/{item}', [PurchaseController::class, 'update']);
     Route::post('/purchase/{item}', [PurchaseController::class, 'store']);
-    Route::get('/checkout/success', function () { return view('checkout.success');
-    })->name('checkout.success');
-    Route::get('/checkout/cancel', function () {
-    return view('checkout.cancel');
-    })->name('checkout.cancel');
+    Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+    Route::get('/checkout/cancel', [CheckoutController::class, 'cancel'])->name('checkout.cancel');
     Route::get('/sell', [ItemController::class, 'exhibit']);
     Route::post('/sell', [ItemController::class, 'store']);
     Route::get('/mypage', [ProfileController::class, 'mypage']);

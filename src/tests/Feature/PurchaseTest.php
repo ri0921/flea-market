@@ -13,7 +13,7 @@ class PurchaseTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_purchase_success()
+    public function testPurchaseSuccess()
     {
         $profile = Profile::factory()->create();
         $item = Item::factory()->withCategories(3)->create();
@@ -51,7 +51,7 @@ class PurchaseTest extends TestCase
         $response->assertSee($item->name);
     }
 
-    public function test_payment_method_selected()
+    public function testPaymentMethodSelected()
     {
         $profile = Profile::factory()->create();
         $item = Item::factory()->withCategories(3)->create();

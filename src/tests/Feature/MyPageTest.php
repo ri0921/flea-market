@@ -13,7 +13,7 @@ class MyPageTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_mypage()
+    public function testMyPage()
     {
         $profile = Profile::factory()->create();
         $item = Item::factory()->withCategories(3)->create(['profile_id' => $profile->id]);
@@ -33,7 +33,7 @@ class MyPageTest extends TestCase
         $response->assertSee($purchase->item->name);
     }
 
-    public function test_edit_profile()
+    public function testEditProfile()
     {
         $profile = Profile::factory()->create();
         $this->actingAs($profile->user);

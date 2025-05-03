@@ -11,7 +11,7 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_email_is_required()
+    public function testEmailIsRequired()
     {
         $response = $this->post('/login', [
             'email' => '',
@@ -22,7 +22,7 @@ class LoginTest extends TestCase
             'email' => 'メールアドレスを入力してください']);
     }
 
-    public function test_password_is_required()
+    public function testPasswordIsRequired()
     {
         $response = $this->post('/login', [
             'email' => 'test@example.com',
@@ -33,7 +33,7 @@ class LoginTest extends TestCase
             'password' => 'パスワードを入力してください']);
     }
 
-    public function test_wrong_login_user()
+    public function testWrongLoginUser()
     {
         $response = $this->post('/login', [
             'email' => 'wrong@example.com',
@@ -44,7 +44,7 @@ class LoginTest extends TestCase
             'email' => 'ログイン情報が登録されていません']);
     }
 
-    public function test_login_success()
+    public function testLoginSuccess()
     {
         $user = User::factory()->create([
             'email' => 'test@example.com',
@@ -58,7 +58,7 @@ class LoginTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    public function test_logout()
+    public function testLogout()
     {
         $user = User::factory()->create();
         $this->actingAs($user);

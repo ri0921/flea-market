@@ -7,6 +7,7 @@
     width: 150px;
     height: 150px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .user-name {
@@ -70,7 +71,7 @@
     color: #000;
 }
 
-.list-card img {
+.card__image {
     width: 90%;
     aspect-ratio: 1/1;
     object-fit: cover;
@@ -94,7 +95,7 @@
     opacity: 0.9;
 }
 
-.image-title {
+.card__title {
     margin: 5px 0 30px;
     width: 90%;
     font-size: 20px;

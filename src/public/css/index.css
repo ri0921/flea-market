@@ -5,14 +5,16 @@
     border-bottom: solid 2px #5F5F5F;
 }
 
-.tabs a {
+.tab-suggest,
+.tab-mylist {
     padding-left: 50px;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 22px;
     color: #5F5F5F;
 }
 
-.tabs a.active {
+.tab-suggest.active,
+.tab-mylist.active {
     color: #FF0000;
 }
 
@@ -33,7 +35,7 @@
     margin-top: 30px;
 }
 
-.list-card img {
+.card__image {
     width: 90%;
     aspect-ratio: 1/1;
     object-fit: cover;
@@ -62,7 +64,7 @@
     opacity: 0.9;
 }
 
-.image-title {
+.card__title {
     margin: 5px 0 30px;
     width: 90%;
     font-size: 20px;

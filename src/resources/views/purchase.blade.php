@@ -9,10 +9,10 @@
     <div class="order-details">
         <div class="order__group">
             <div class="item-image">
-                <img src="{{ Storage::url($item->image) }}" alt="商品画像" width="100%">
+                <img class="item-image__file" src="{{ Storage::url($item->image) }}" alt="商品画像" width="100%">
             </div>
             <p class="item-name">{{ $item->name }}</p>
-            <div class="item-price"><span>¥</span>{{ number_format($item->price) }}</div>
+            <div class="item-price"><span class="item-price__span">¥</span>{{ number_format($item->price) }}</div>
         </div>
         <div class="order__group">
             <p class="order__group-p">支払い方法</p>
@@ -28,7 +28,7 @@
         <div class="order__group">
             <div class="group__row">
                 <p class="order__group-p">配送先</p>
-                <a href="/purchase/address/{{ $item->id }}">変更する</a>
+                <a class="group__row-link" href="/purchase/address/{{ $item->id }}">変更する</a>
                 </div>
             <div class="destination">
                 <div class="post_code">{{ $address['post_code'] }}</div>
@@ -47,14 +47,14 @@
             @csrf
             <input type="hidden" name="payment_method" value="{{ session('payment_method') }}">
             <input type="hidden" name="address_id" value="">
-            <table>
-                <tr>
-                    <th>商品代金</th>
-                    <td><span>¥</span>{{ number_format($item->price) }}</td>
+            <table class="confirm-table">
+                <tr class="confirm-table__row">
+                    <th class="confirm-table__head">商品代金</th>
+                    <td class="confirm-table__detail"><span class="table__detail-span">¥</span>{{ number_format($item->price) }}</td>
                 </tr>
-                <tr>
-                    <th>支払い方法</th>
-                    <td>{{ session('payment_method') ?? '選択されていません' }}</td>
+                <tr class="confirm-table__row">
+                    <th class="confirm-table__head">支払い方法</th>
+                    <td class="confirm-table__detail">{{ session('payment_method') ?? '選択されていません' }}</td>
                 </tr>
             </table>
             <div class="form__error">
