@@ -36,11 +36,6 @@ docker-compose exec php bash
 ```
 composer install
 ```
-* vendor/stripe/stripe-php ディレクトリが生成されていなければStripeライブラリのインストール
-```
-composer require stripe/stripe-php
-```
-* config確認
 * .envファイル作成、環境変数を変更、基本設計書記載のAPIキーを追加
 ```
 cp .env.example .env
@@ -65,7 +60,20 @@ php artisan storage:link
 ```
 docker run -d -p 1025:1025 -p 8025:8025 mailhog/mailhog
 ```
-* テスト用データベースdemo_testがあるか確認、なければ追記
+
+### テスト用データベースの作成
+* MySQLに接続
+```
+docker-compose exec mysql bash
+```
+```
+mysql -u root -p
+```
+* データベース`demo_test`を作成
+```
+CREATE DATABASE demo_test;
+```
+* .env.testingファイルに基本設計書記載のAPIキーを追加
 * テスト用アプリケーションキーの生成
 ```
 php artisan key:generate --env=testing

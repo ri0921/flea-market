@@ -102,7 +102,7 @@ class ItemController extends Controller
         $user = Auth::user();
         $exhibition = $request->all();
         $exhibition['profile_id'] = $user->profile->id;
-        $exhibition['image'] = $request->file('image')->store('item_img', 'public');
+        $exhibition['image'] = $request->file('image')->store('img', 'public');
         $item = Item::create($exhibition);
         $item->categories()->attach($request->input('categories'));
         return redirect('/mypage?tab=sell');

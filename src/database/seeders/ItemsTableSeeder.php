@@ -23,7 +23,7 @@ class ItemsTableSeeder extends Seeder
             'name' => '腕時計',
             'brand' => 'EMPORIO ARMANI',
             'price' => 15000,
-            'image' => 'item_img/watch.jpg',
+            'image' => 'img/watch.jpg',
             'condition' => '良好',
             'description' => 'スタイリッシュなデザインのメンズ腕時計',
         ]);
@@ -31,7 +31,7 @@ class ItemsTableSeeder extends Seeder
             'profile_id' => $profile->id,
             'name' => 'HDD',
             'price' => 5000,
-            'image' => 'item_img/hdd.jpg',
+            'image' => 'img/hdd.jpg',
             'condition' => '目立った傷や汚れなし',
             'description' => '高速で信頼性の高いハードディスク',
         ]);
@@ -39,7 +39,7 @@ class ItemsTableSeeder extends Seeder
             'profile_id' => $profile->id,
             'name' => '玉ねぎ3束',
             'price' => 300,
-            'image' => 'item_img/onion.jpg',
+            'image' => 'img/onion.jpg',
             'condition' => 'やや傷や汚れあり',
             'description' => '新鮮な玉ねぎ3束のセット',
         ]);
@@ -47,7 +47,7 @@ class ItemsTableSeeder extends Seeder
             'profile_id' => $profile->id,
             'name' => '革靴',
             'price' => 4000,
-            'image' => 'item_img/leather-shoes.jpg',
+            'image' => 'img/leather-shoes.jpg',
             'condition' => '状態が悪い',
             'description' => 'クラシックなデザインの革靴',
         ]);
@@ -55,7 +55,7 @@ class ItemsTableSeeder extends Seeder
             'profile_id' => $profile->id,
             'name' => 'ノートPC',
             'price' => 45000,
-            'image' => 'item_img/laptop.jpg',
+            'image' => 'img/laptop.jpg',
             'condition' => '良好',
             'description' => '高性能なノートパソコン',
         ]);
@@ -63,7 +63,7 @@ class ItemsTableSeeder extends Seeder
             'profile_id' => $profile->id,
             'name' => 'マイク',
             'price' => 8000,
-            'image' => 'item_img/microphone.jpg',
+            'image' => 'img/microphone.jpg',
             'condition' => '目立った傷や汚れなし',
             'description' => '高音質のレコーディング用マイク',
         ]);
@@ -71,7 +71,7 @@ class ItemsTableSeeder extends Seeder
             'profile_id' => $profile->id,
             'name' => 'ショルダーバッグ',
             'price' => 3500,
-            'image' => 'item_img/shoulder-bag.jpg',
+            'image' => 'img/shoulder-bag.jpg',
             'condition' => 'やや傷や汚れあり',
             'description' => 'おしゃれなショルダーバッグ',
         ]);
@@ -79,7 +79,7 @@ class ItemsTableSeeder extends Seeder
             'profile_id' => $profile->id,
             'name' => 'タンブラー',
             'price' => 500,
-            'image' => 'item_img/tumbler.jpg',
+            'image' => 'img/tumbler.jpg',
             'condition' => '状態が悪い',
             'description' => '使いやすいタンブラー',
         ]);
@@ -87,7 +87,7 @@ class ItemsTableSeeder extends Seeder
             'profile_id' => $profile->id,
             'name' => 'コーヒーミル',
             'price' => 4000,
-            'image' => 'item_img/coffee-mill.jpg',
+            'image' => 'img/coffee-mill.jpg',
             'condition' => '良好',
             'description' => '手動のコーヒーミル',
         ]);
@@ -95,7 +95,7 @@ class ItemsTableSeeder extends Seeder
             'profile_id' => $profile->id,
             'name' => 'メイクセット',
             'price' => 2500,
-            'image' => 'item_img/makeup-set.jpg',
+            'image' => 'img/makeup-set.jpg',
             'condition' => '目立った傷や汚れなし',
             'description' => '便利なメイクアップセット',
         ]);
