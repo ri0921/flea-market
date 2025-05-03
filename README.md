@@ -40,6 +40,10 @@ composer install
 ```
 cp .env.example .env
 ```
+```
+php artisan config:clear
+php artisan config:cache
+```
 * アプリケーションキーの生成
 ```
 php artisan key:generate
@@ -56,9 +60,9 @@ php artisan db:seed
 ```
 php artisan storage:link
 ```
-* MailHogの起動
+* 画像をstorageディレクトリにコピー
 ```
-docker run -d -p 1025:1025 -p 8025:8025 mailhog/mailhog
+mkdir -p src/storage/app/public/img && cp -r src/public/img/* src/storage/app/public/img/
 ```
 
 ### テスト用データベースの作成
@@ -74,6 +78,10 @@ mysql -u root -p
 CREATE DATABASE demo_test;
 ```
 * .env.testingファイルに基本設計書記載のAPIキーを追加
+```
+php artisan config:clear
+php artisan config:cache
+```
 * テスト用アプリケーションキーの生成
 ```
 php artisan key:generate --env=testing
