@@ -49,7 +49,7 @@
     text-align: center;
 }
 
-.login__link a {
+.login__link-text {
     text-decoration: none;
     color: #0073CC;
 }

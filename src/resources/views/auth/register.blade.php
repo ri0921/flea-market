@@ -50,7 +50,7 @@
                 <button class="form__button-submit" type="submit">登録する</button>
             </div>
             <div class="login__link">
-                <a href="/login">ログインはこちら</a>
+                <a class="login__link-text" href="/login">ログインはこちら</a>
             </div>
         </form>
     </div>

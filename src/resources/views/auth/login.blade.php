@@ -32,7 +32,7 @@
                 <button class="form__button-submit" type="submit">ログインする</button>
             </div>
             <div class="register__link">
-                <a href="/register">会員登録はこちら</a>
+                <a class="register__link-text" href="/register">会員登録はこちら</a>
             </div>
         </form>
     </div>
