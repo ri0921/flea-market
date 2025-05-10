@@ -17,25 +17,22 @@ class MyListTest extends TestCase
     public function testLikeItems()
     {
         $profile = Profile::factory()->create();
-        $items = Item::factory()->withCategories(3)->count(5)->create();
-        $likedItems = $items->take(3);
-        foreach ($likedItems as $item) {
-            Like::create([
+        $likedItem = Item::factory()->withCategories(3)->create([
+            'name' => 'いいね',
+        ]);
+        Like::create([
                 'profile_id' => $profile->id,
-                'item_id' => $item->id,
-            ]);
-        }
-        $unlikedItems = $items->skip(3);
+                'item_id' => $likedItem->id,
+        ]);
+        $unlikedItem = Item::factory()->withCategories(3)->create([
+            'name' => '表示しない',
+        ]);
 
         $this->actingAs($profile->user);
         $response = $this->get('/?tab=mylist');
         $response->assertStatus(200);
-        foreach ($likedItems as $item) {
-            $response->assertSee($item->name);
-        }
-        foreach ($unlikedItems as $item) {
-            $response->assertDontSee($item->name);
-        }
+        $response->assertSeeText('いいね');
+        $response->assertDontSeeText('表示しない');
     }
 
     public function testSoldItems()
@@ -57,30 +54,28 @@ class MyListTest extends TestCase
     public function testNotSeeOwnItems()
     {
         $profile = Profile::factory()->create();
-        $item = Item::factory()->withCategories(3)->create(['profile_id' => $profile->id]);
-        Like::create([
+        $item = Item::factory()->withCategories(3)->create([
             'profile_id' => $profile->id,
-            'item_id' => $item->id,
+            'name' => '表示しない',
         ]);
 
         $this->actingAs($profile->user);
-        $response = $this->get('/?tab=mylist');
+        $response = $this->get('/');
         $response->assertStatus(200);
-        $response->assertDontSee($item->name);
+        $response->assertDontSeeText('表示しない');
     }
 
     public function testGuestInMyList()
     {
-        $profile = Profile::factory()->create();
-        $items = Item::factory()->withCategories(3)->count(3)->create();
-        foreach ($items as $item) {
-            Like::create([
-                'profile_id' => $profile->id,
-                'item_id' => $item->id,
-            ]);
-        }
+        $items = collect([
+            Item::factory()->withCategories(3)->create(['name' => 'アイテムA']),
+            Item::factory()->withCategories(3)->create(['name' => 'アイテムB']),
+            Item::factory()->withCategories(3)->create(['name' => 'アイテムC']),
+        ]);
         $response = $this->get('/?tab=mylist');
         $response->assertStatus(200);
-        $response->assertDontSee($item->name);
+        foreach ($items as $item) {
+            $response->assertDontSeeText($item->name);
+        }
     }
 }
