@@ -91,11 +91,29 @@ php artisan key:generate --env=testing
 php artisan migrate --env=testing
 ```
 
-## ログイン情報
+## テストアカウント情報
 
-`php artisan db:seed` を実行すると、テスト用ユーザーが自動的に作成されます。  
-一般ユーザーの情報（メールアドレスなど）は `UserFactory` によって**ランダムに生成されるため、毎回異なります**。  
-ユーザー情報はデータベースで確認できます。
+- **user01**
+  - name: user01
+  - email: user01@example.com
+  - password: user01pass
+
+---
+
+- **user02**
+  - name: user02
+  - email: user02@example.com
+  - password: user02pass
+
+---
+
+- **user03**
+  - name: user03
+  - email: user03@example.com
+  - password: user03pass
+
+---
+
 
 ## 使用技術
 * PHP 7.4.9
