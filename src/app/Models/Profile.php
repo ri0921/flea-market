@@ -41,4 +41,8 @@ class Profile extends Model
     {
         return $this->hasManyThrough(Item::class, Like::class, 'profile_id', 'id', 'id', 'item_id');
     }
+
+    public function chats(){
+        return $this->hasMany(Chat::class);
+    }
 }
