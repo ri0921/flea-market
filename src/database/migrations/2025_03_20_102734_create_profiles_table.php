@@ -21,6 +21,7 @@ class CreateProfilesTable extends Migration
             $table->string('post_code');
             $table->string('address');
             $table->string('building')->nullable();
+            $table->decimal('rating', 2, 1)->nullable();
             $table->timestamps();
         });
     }
