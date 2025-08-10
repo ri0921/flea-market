@@ -11,7 +11,7 @@
 </head>
 
 <body>
-@if (request()->is('login') || request()->is('register') || request()->is('email/verify'))
+@if (request()->is('login') || request()->is('register') || request()->is('email/verify') || request()->is('mypage/chat/' . $item->id))
     <header class="header">
         <div class="header__inner">
             <h1 class="header__logo">
