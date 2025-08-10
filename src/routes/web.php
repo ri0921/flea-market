@@ -5,6 +5,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +41,5 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/sell', [ItemController::class, 'exhibit']);
     Route::post('/sell', [ItemController::class, 'store']);
     Route::get('/mypage', [ProfileController::class, 'mypage']);
+    Route::get('/mypage/chat/{item}', [ChatController::class, 'chat']);
 });
