@@ -88,7 +88,7 @@
         @endif
         <form action="/mypage/chat/{{$item->id}}" method="POST" enctype="multipart/form-data" class="message-form">
             @csrf
-            <input class="message-text" type="text" name="message" value="{{ old('message') }}" placeholder="取引メッセージを記入してください">
+            <textarea class="message-text" type="text" name="message" placeholder="取引メッセージを記入してください">{{ urldecode($draft ?? '') }}</textarea>
             <input class="add-image" type="file" accept="image/*" name="message_image" id="file-input">
             <label class="upload__button" for="file-input">画像を追加</label>
             <button class="send-message" type="submit">
@@ -112,6 +112,20 @@
             };
             reader.readAsDataURL(file);
         }
+    });
+
+    const currentItemId = @json($item->id);
+    document.querySelectorAll('.chat-link').forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const messageTextarea = document.querySelector('textarea[name="message"]');
+            const draftText = encodeURIComponent(messageTextarea ? messageTextarea.value : '');
+
+            const url = new URL(this.href, window.location.origin);
+            url.searchParams.set('draft', draftText);
+            url.searchParams.set('from_item_id', currentItemId);
+            window.location.href = url.toString();
+        });
     });
 </script>
 @endsection
