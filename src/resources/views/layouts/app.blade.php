@@ -15,7 +15,9 @@
     <header class="header">
         <div class="header__inner">
             <h1 class="header__logo">
-                <img src="{{ asset('logo.svg') }}" alt="logo" width="100%">
+                <a href="/">
+                    <img src="{{ asset('logo.svg') }}" alt="logo" width="100%">
+                </a>
             </h1>
         </div>
     </header>

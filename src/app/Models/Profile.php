@@ -46,6 +46,16 @@ class Profile extends Model
         return $this->hasMany(Chat::class);
     }
 
+    public function sentChats()
+    {
+        return $this->hasMany(Chat::class, 'sender_id');
+    }
+
+    public function receivedChats()
+    {
+        return $this->hasMany(Chat::class, 'receiver_id');
+    }
+
     public function reviewsWritten()
     {
         return $this->hasMany(Review::class, 'reviewer_id');

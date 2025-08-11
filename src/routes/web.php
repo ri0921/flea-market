@@ -42,4 +42,5 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::post('/sell', [ItemController::class, 'store']);
     Route::get('/mypage', [ProfileController::class, 'mypage']);
     Route::get('/mypage/chat/{item}', [ChatController::class, 'chat']);
+    Route::post('/mypage/chat/{item}', [ChatController::class, 'send']);
 });

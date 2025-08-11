@@ -16,4 +16,19 @@ class Chat extends Model
     public function purchase(){
         return $this->belongsTo(Purchase::class);
     }
+
+    public function profile()
+    {
+        return $this->belongsTo(Profile::class);
+    }
+
+    public function sender()
+    {
+        return $this->belongsTo(Profile::class, 'sender_id');
+    }
+
+    public function receiver()
+    {
+        return $this->belongsTo(Profile::class, 'receiver_id');
+    }
 }
