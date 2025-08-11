@@ -24,4 +24,14 @@ class Purchase extends Model
     public function item(){
         return $this->belongsTo(Item::class);
     }
+
+    public function reviewsWritten()
+    {
+        return $this->hasMany(Review::class, 'reviewer_id');
+    }
+
+    public function reviewsReceived()
+    {
+        return $this->hasMany(Review::class, 'reviewee_id');
+    }
 }

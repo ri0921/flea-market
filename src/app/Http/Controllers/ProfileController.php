@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Profile;
+use App\Models\Purchase;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProfileRequest;
 use Illuminate\Support\Facades\Storage;
@@ -48,6 +49,20 @@ class ProfileController extends Controller
         $tab = request('tab', 'sell');
         $sellItems = $profile->items()->with('purchase')->latest()->get();
         $buyItems = $profile->purchases()->with('item')->latest()->get();
-        return view('mypage', compact('profile', 'tab', 'sellItems', 'buyItems'));
+
+        $profileId = $profile->id;
+        $chatItems = Purchase::where(function ($query) use ($profileId) {
+            $query->whereHas('item', function ($q) use ($profileId) {
+                $q->where('profile_id', $profileId);
+            })
+            ->orWhere('profile_id', $profileId);
+        })
+        ->whereDoesntHave('reviewsWritten', function ($q) use ($profileId) {
+            $q->where('reviewer_id', $profileId);
+        })
+        ->with(['item', 'reviewsWritten'])
+        ->latest()->get();
+
+        return view('mypage', compact('profile', 'tab', 'sellItems', 'buyItems', 'chatItems'));
     }
 }
