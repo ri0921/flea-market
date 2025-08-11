@@ -31,8 +31,8 @@
         <section class="item-info">
             <img class="item-image" src="{{ Storage::url($item->image) }}" alt="商品画像" width="100%">
             <div class="item-detail">
-                <h3 class="item-name">商品名</h3>
-                <p class="item-price">商品価格</p>
+                <h3 class="item-name">{{ $item->name }}</h3>
+                <p class="item-price">¥{{ number_format($item->price) }}</p>
             </div>
         </section>
         <section class="chat-area">
