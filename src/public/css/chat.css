@@ -4,7 +4,7 @@
 
 .sidebar {
     width: 200px;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #868686;
     text-align: center;
 }
@@ -146,13 +146,25 @@
     order: 0;
 }
 
-.message {
+.message,
+.send-image {
     margin-top: 5px;
     max-width: 40vw;
     padding: 8px 12px;
     border-radius: 4px;
     word-wrap: break-word;
     background-color: #D9D9D9;
+}
+
+.send-image {
+    width: 300px;
+}
+
+.send-image__path {
+    width: 100%;
+}
+
+.message {
     font-size: 1.7vw;
 }
 
@@ -176,22 +188,42 @@
     color: rgb(237, 66, 66);
 }
 
+.form-error {
+    margin: auto 30px 0 30px;
+    color: rgb(237, 66, 66);
+}
+
+.message-form {
+    display: flex;
+}
+
 .message-text {
     width: 65%;
     height: 40px;
-    margin: 10px 5px 10px 20px;
+    margin: 0 5px 10px 20px;
     border-radius: 4px;
     border: solid 1px #5F5F5F;
 }
 
 .add-image {
-    padding: 5px 10px;
-    border-radius: 10px;
+    display: none;
+}
+
+.upload__button {
+    height: 40px;
+    padding: 8px 10px;
     border: solid 2px #FF5555;
+    border-radius: 10px;
     color: #FF5555;
     background-color: #fff;
     font-size: 17px;
     font-weight: bold;
+    cursor: pointer;
+}
+
+.message-image {
+    width: 200px;
+    margin: 5px 20px;
 }
 
 .send-message {
