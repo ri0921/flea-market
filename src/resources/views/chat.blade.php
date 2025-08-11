@@ -9,9 +9,13 @@
     <div class="sidebar">
         <p class="others-chat">その他の取引</p>
         <ul class="chat-menu">
-            <li class="chat-list">商品名</li>
-            <li class="chat-list">商品名</li>
-            <li class="chat-list">商品名</li>
+            @foreach ($chatItems as $purchase)
+            <li class="chat-list">
+                <a class="chat-link" href="/mypage/chat/{{ $purchase->item->id }}">
+                    {{ $purchase->item->name }}
+                </a>
+            </li>
+            @endforeach
         </ul>
     </div>
     <div class="main">
