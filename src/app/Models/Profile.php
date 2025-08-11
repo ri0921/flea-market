@@ -45,4 +45,19 @@ class Profile extends Model
     public function chats(){
         return $this->hasMany(Chat::class);
     }
+
+    public function reviewsWritten()
+    {
+        return $this->hasMany(Review::class, 'reviewer_id');
+    }
+
+    public function reviewsReceived()
+    {
+        return $this->hasMany(Review::class, 'reviewee_id');
+    }
+
+    public function getAverageRatingAttribute()
+    {
+        return round($this->reviewsReceived()->avg('rating') ?? 0);
+    }
 }
