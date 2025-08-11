@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
-    public function chat($id)
+    public function chat(Request $request, $id)
     {
         $item = Item::findOrFail($id);
         $profileId = Auth::user()->profile->id;
@@ -39,7 +39,13 @@ class ChatController extends Controller
             $partner = $purchase->profile;
         }
 
-        return view('chat', compact('item', 'chatItems', 'chats', 'profileId', 'partner', 'profile'));
+        if ($request->has('draft') && $request->has('from_item_id')) {
+            session(['chat_draft_item_'. $request->from_item_id => $request->draft]);
+        }
+
+        $draft = session('chat_draft_item_'. $item->id, '');
+
+        return view('chat', compact('item', 'chatItems', 'chats', 'profileId', 'partner', 'profile', 'draft'));
     }
 
     public function send(ChatRequest $request, $id)
