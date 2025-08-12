@@ -61,8 +61,12 @@
                         <button type="button" class="cancel-edit" data-id="{{ $chat->id }}">キャンセル</button>
                     </form>
                     <div class="chat-actions">
-                        <div class="edit" data-id="{{ $chat->id }}">編集</div>
-                        <div class="delete">削除</div>
+                        <button class="edit" type="button" data-id="{{ $chat->id }}">編集</button>
+                        <form class="delete-form" method="POST" action="/mypage/chat/{{ $chat->id }}" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button class="delete" type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
+                        </form>
                     </div>
                 </div>
                 @else

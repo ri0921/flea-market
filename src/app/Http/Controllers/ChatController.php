@@ -72,6 +72,13 @@ class ChatController extends Controller
         $chat->message = $request->message;
         $chat->save();
 
-        return redirect()->back()->with('chat', $chat);
+        return redirect()->back();
+    }
+
+    public function destroy(Chat $chat)
+    {
+        $chat->delete();
+
+        return redirect()->back();
     }
 }

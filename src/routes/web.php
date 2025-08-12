@@ -45,4 +45,5 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/mypage/chat/{item}', [ChatController::class, 'chat']);
     Route::post('/mypage/chat/{item}', [ChatController::class, 'send']);
     Route::put('/mypage/chat/{chat}', [ChatController::class, 'edit']);
+    Route::delete('/mypage/chat/{chat}', [ChatController::class, 'destroy']);
 });

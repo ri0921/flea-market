@@ -171,13 +171,27 @@
 .chat-actions {
     display: flex;
     padding-right: 10px;
-    gap: 10px;
-    font-size: 1.3vw;
+    align-items: center;
+    height: 28px;
+}
+
+.delete-form {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
 }
 
 .edit,
 .delete {
+    height: 100%;
+    padding: 0px 8px;
     cursor: pointer;
+    font-size: 1.3vw;
+    border: none;
+    background: none;
+    vertical-align: middle;
+    line-height: 1;
+    box-sizing: border-box;
 }
 
 .edit:hover {
