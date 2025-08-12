@@ -50,11 +50,18 @@
                             <img class="send-image__path" src="{{ asset('storage/' . $chat->message_image) }}" alt="送信画像">
                         </div>
                     @endif
-                    <div class="message">
+                    <div class="message" id="message-text-{{ $chat->id }}">
                         {{ $chat->message }}
                     </div>
+                    <form method="POST" action="/mypage/chat/{{ $chat->id }}" class="edit-form" id="edit-form-{{ $chat->id }}" style="display:none;">
+                        @csrf
+                        @method('PUT')
+                        <input type="text" name="message" value="{{ $chat->message }}">
+                        <button type="submit">保存</button>
+                        <button type="button" class="cancel-edit" data-id="{{ $chat->id }}">キャンセル</button>
+                    </form>
                     <div class="chat-actions">
-                        <div class="edit">編集</div>
+                        <div class="edit" data-id="{{ $chat->id }}">編集</div>
                         <div class="delete">削除</div>
                     </div>
                 </div>
@@ -127,5 +134,22 @@
             window.location.href = url.toString();
         });
     });
+
+    document.querySelectorAll('.edit').forEach(button => {
+    button.addEventListener('click', e => {
+        const id = e.target.dataset.id;
+        document.getElementById(`message-text-${id}`).style.display = 'none';
+        document.getElementById(`edit-form-${id}`).style.display = 'inline-block';
+    });
+});
+
+document.querySelectorAll('.cancel-edit').forEach(button => {
+    button.addEventListener('click', e => {
+        const id = e.target.dataset.id;
+        document.getElementById(`message-text-${id}`).style.display = 'inline';
+        document.getElementById(`edit-form-${id}`).style.display = 'none';
+    });
+});
+
 </script>
 @endsection
