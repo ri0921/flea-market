@@ -55,7 +55,7 @@
         <ul class="list">
             @foreach ($chatItems as $purchase)
             <li class="list-card">
-                <a class="item-link" href="/mypage/chat/{{ $purchase->item->id }}">
+                <a class="item-link" href="/mypage/chat/{{ $purchase->id }}">
                     <img class="card__image" src="{{ Storage::url($purchase->item->image) }}" alt="商品画像" width="100%">
                     @if(isset($unreadCounts[$purchase->id]) && $unreadCounts[$purchase->id] > 0)
                         <div class="unread-badge">

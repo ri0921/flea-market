@@ -59,10 +59,10 @@ class ProfileController extends Controller
             })
                 ->orWhere('profile_id', $profileId);
         })
-            ->whereDoesntHave('reviewsWritten', function ($q) use ($profileId) {
+            ->whereDoesntHave('reviews', function ($q) use ($profileId) {
                 $q->where('reviewer_id', $profileId);
             })
-            ->with(['item', 'reviewsWritten'])
+            ->with(['item', 'reviews'])
             ->withMax('chats', 'created_at')
             ->orderByDesc('chats_max_created_at')
             ->get();

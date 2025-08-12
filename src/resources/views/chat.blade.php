@@ -11,7 +11,7 @@
         <ul class="chat-menu">
             @foreach ($chatItems as $purchase)
             <li class="chat-list">
-                <a class="chat-link" href="/mypage/chat/{{ $purchase->item->id }}">
+                <a class="chat-link" href="/mypage/chat/{{ $purchase->id }}">
                     {{ $purchase->item->name }}
                 </a>
             </li>
@@ -24,11 +24,15 @@
                 <img class="partner-image" src="{{ $partner->image ? Storage::url($partner->image) : asset('img/default.png') }}" alt="アイコン">
             </div>
             <h2 class="title">「{{ $partner->name }}」さんとの取引画面</h2>
-            <div class="button">
-                <button class="completed-button" id="openModalBtn">取引を完了する</button>
-            </div>
+            @if($profileId === $purchase->profile_id)
+                <form class="complete-form" action="/mypage/chat/{{ $purchase->id }}/complete" method="post">
+                    @csrf
+                    <button class="complete-button" id="openModalBtn">取引を完了する</button>
+                </form>
+            @endif
             <!-- モーダル -->
-            <div id="ratingModal" class="modal hidden">
+            @if($purchase->completed_at)
+            <div class="modal">
                 <div class="modal-content">
                     <p class="completed-message">取引が完了しました。</p>
                     <p class="rating-message">今回の取引相手はどうでしたか？</p>
@@ -37,13 +41,14 @@
                             <span class="star" data-value="{{ $i }}">&#9733;</span>
                         @endfor
                     </div>
-                    <form class="rating-form" action="" method="POST">
+                    <form class="rating-form" action="/mypage/chat/{{ $purchase->id }}/review" method="POST">
                         @csrf
                         <input type="hidden" name="rating" id="ratingValue">
                         <button type="submit" class="send-rating">送信する</button>
                     </form>
                 </div>
             </div>
+            @endif
         </header>
 
         <section class="item-info">
@@ -115,7 +120,7 @@
                 @endforeach
             </div>
         @endif
-        <form action="/mypage/chat/{{$item->id}}" method="POST" enctype="multipart/form-data" class="message-form">
+        <form action="/mypage/chat/{{ $purchase->id }}" method="POST" enctype="multipart/form-data" class="message-form">
             @csrf
             <textarea class="message-text" type="text" name="message" placeholder="取引メッセージを記入してください">{{ urldecode($draft ?? '') }}</textarea>
             <input class="add-image" type="file" accept="image/*" name="message_image" id="file-input">
@@ -145,7 +150,7 @@
     });
 
     // メッセージの保持
-    const currentItemId = @json($item->id);
+    const currentItemId = @json($purchase->id);
     document.querySelectorAll('.chat-link').forEach(link => {
         link.addEventListener('click', function(event) {
             event.preventDefault();
@@ -154,7 +159,7 @@
 
             const url = new URL(this.href, window.location.origin);
             url.searchParams.set('draft', draftText);
-            url.searchParams.set('from_item_id', currentItemId);
+            url.searchParams.set('from_purchase_id', currentItemId);
             window.location.href = url.toString();
         });
     });
@@ -177,10 +182,6 @@
     });
 
     // モーダル
-    document.getElementById('openModalBtn').addEventListener('click', function() {
-        document.getElementById('ratingModal').classList.remove('hidden');
-    });
-
     document.querySelectorAll('.star').forEach(star => {
         star.addEventListener('click', function() {
             let value = this.getAttribute('data-value');
