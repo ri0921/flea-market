@@ -1,6 +1,6 @@
 .profile {
     display: flex;
-    margin: 5% 15%;
+    margin: 5% 10%;
 }
 
 .rounded-circle {
@@ -10,10 +10,30 @@
     object-fit: cover;
 }
 
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .user-name {
-    margin: auto auto auto ;
+    margin-left: 20px;
     font-size: 28px;
     font-weight: bold;
+}
+
+.user-rating {
+    margin-left: 20px;
+    font-size: 30px;
+}
+
+.star {
+    color: #D9D9D9;
+}
+
+.star.filled {
+    color: #FFF048;
 }
 
 .profile-link {

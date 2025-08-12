@@ -10,7 +10,22 @@
         <div class="user-image">
             <img class="rounded-circle" src="{{ $profile->image ? Storage::url($profile->image) : asset('img/default.png') }}" alt="プロフィール画像">
         </div>
-        <div class="user-name">{{ $profile->name }}</div>
+        <div class="user-info">
+            <div class="user-name">
+                {{ $profile->name }}
+            </div>
+            @if (!is_null($averageRating))
+            <div class="user-rating">
+                @for ($i = 1; $i <= 5; $i++)
+                    @if ($i <= $averageRating)
+                        <span class="star filled">&#9733;</span>
+                    @else
+                        <span class="star">&#9733;</span>
+                    @endif
+                @endfor
+            </div>
+            @endif
+        </div>
         <div class="profile-link">
             <button class="profile-link__button" type="button" onclick="location.href='/mypage/profile'">プロフィールを編集</button>
         </div>
