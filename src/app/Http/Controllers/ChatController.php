@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
-    public function chat(Request $request, $id)
+    public function chat(Request $request, Purchase $purchase)
     {
-        $item = Item::findOrFail($id);
+        $item = $purchase->item;
         $profileId = Auth::user()->profile->id;
         $chatItems = Purchase::where(function ($query) use ($profileId) {
             $query->whereHas('item', function ($q) use ($profileId) {
@@ -21,14 +21,15 @@ class ChatController extends Controller
             })
             ->orWhere('profile_id', $profileId);
         })
-        ->whereDoesntHave('reviewsWritten', function ($q) use ($profileId) {
-            $q->where('reviewer_id', $profileId);
-        })
-        ->with(['item', 'reviewsWritten'])
-        ->latest()->get();
+            ->whereDoesntHave('reviewsWritten', function ($q) use ($profileId) {
+                $q->where('reviewer_id', $profileId);
+            })
+            ->with(['item', 'reviewsWritten'])
+            ->withMax('chats', 'created_at')
+            ->orderByDesc('chats_max_created_at')
+            ->get();
 
         $profile = Auth::user()->profile;
-        $purchase = Purchase::where('item_id', $item->id)->firstOrFail();
         $chats = Chat::where('purchase_id', $purchase->id)
             ->orderBy('created_at', 'asc')
             ->get();
@@ -39,24 +40,25 @@ class ChatController extends Controller
             $partner = $purchase->profile;
         }
 
-        if ($request->has('draft') && $request->has('from_item_id')) {
-            session(['chat_draft_item_'. $request->from_item_id => $request->draft]);
+        if ($request->has('draft') && $request->has('from_purchase_id')) {
+            session(['chat_draft_purchase_'. $request->from_purchase_id => $request->draft]);
         }
 
-        $draft = session('chat_draft_item_'. $item->id, '');
+        $draft = session('chat_draft_purchase_'. $purchase->id, '');
 
         Chat::where('purchase_id', $purchase->id)
             ->whereNull('read_at')
             ->where('sender_id', '!=', $profileId)
             ->update(['read_at' => now()]);
 
-        return view('chat', compact('item', 'chatItems', 'chats', 'profileId', 'partner', 'profile', 'draft'));
+        $isCompleted = $purchase->completed_at ?? false;
+
+        return view('chat', compact('item', 'chatItems', 'chats', 'profileId', 'partner', 'profile', 'draft', 'purchase', 'isCompleted'));
     }
 
-    public function send(ChatRequest $request, $id)
+    public function send(ChatRequest $request, Purchase $purchase)
     {
-        $item = Item::findOrFail($id);
-        $purchase = Purchase::where('item_id', $item->id)->firstOrFail();
+        $item = $purchase->item;
         $profile = Auth::user()->profile;
 
         $data = [
@@ -69,7 +71,7 @@ class ChatController extends Controller
             $data['message_image'] = $request->file('message_image')->store('img', 'public');
         }
         Chat::create($data);
-        return redirect('/mypage/chat/' . $item->id);
+        return redirect('/mypage/chat/' . $purchase->id);
     }
 
     public function edit(ChatRequest $request, Chat $chat)
@@ -85,5 +87,13 @@ class ChatController extends Controller
         $chat->delete();
 
         return redirect()->back();
+    }
+
+    public function complete(Request $request, Purchase $purchase)
+    {
+        $purchase->completed_at = now();
+        $purchase->save();
+
+        return redirect('/mypage/chat/'. $purchase->id);
     }
 }

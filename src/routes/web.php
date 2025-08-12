@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,8 +43,10 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::post('/sell', [ItemController::class, 'store']);
     Route::get('/mypage', [ProfileController::class, 'mypage']);
 
-    Route::get('/mypage/chat/{item}', [ChatController::class, 'chat']);
-    Route::post('/mypage/chat/{item}', [ChatController::class, 'send']);
+    Route::get('/mypage/chat/{purchase}', [ChatController::class, 'chat']);
+    Route::post('/mypage/chat/{purchase}', [ChatController::class, 'send']);
     Route::put('/mypage/chat/{chat}', [ChatController::class, 'edit']);
     Route::delete('/mypage/chat/{chat}', [ChatController::class, 'destroy']);
+    Route::post('/mypage/chat/{purchase}/complete', [ChatController::class, 'complete']);
+    Route::post('/mypage/chat/{purchase}/review', [ReviewController::class, 'store']);
 });
