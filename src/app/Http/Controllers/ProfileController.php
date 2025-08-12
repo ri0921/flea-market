@@ -75,9 +75,13 @@ class ProfileController extends Controller
             ->where('sender_id', '!=', $profileId)
             ->groupBy('purchase_id')
             ->pluck('unread_count', 'purchase_id');
-
         $totalUnread = $unreadCounts->sum();
 
-        return view('mypage', compact('profile', 'tab', 'sellItems', 'buyItems', 'chatItems', 'unreadCounts', 'totalUnread'));
+        $averageRating = $profile->reviewsReceived()->avg('rating');
+        if (!is_null($averageRating)) {
+            $averageRating = round($averageRating);
+        }
+
+        return view('mypage', compact('profile', 'tab', 'sellItems', 'buyItems', 'chatItems', 'unreadCounts', 'totalUnread', 'averageRating'));
     }
 }
