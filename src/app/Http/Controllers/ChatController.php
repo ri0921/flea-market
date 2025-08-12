@@ -45,6 +45,11 @@ class ChatController extends Controller
 
         $draft = session('chat_draft_item_'. $item->id, '');
 
+        Chat::where('purchase_id', $purchase->id)
+            ->whereNull('read_at')
+            ->where('sender_id', '!=', $profileId)
+            ->update(['read_at' => now()]);
+
         return view('chat', compact('item', 'chatItems', 'chats', 'profileId', 'partner', 'profile', 'draft'));
     }
 

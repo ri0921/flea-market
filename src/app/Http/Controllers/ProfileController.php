@@ -63,6 +63,17 @@ class ProfileController extends Controller
         ->with(['item', 'reviewsWritten'])
         ->latest()->get();
 
-        return view('mypage', compact('profile', 'tab', 'sellItems', 'buyItems', 'chatItems'));
+        $chatItemIds = $chatItems->pluck('id');
+        $unreadCounts = \DB::table('chats')
+            ->select('purchase_id', \DB::raw('count(*) as unread_count'))
+            ->whereIn('purchase_id', $chatItemIds)
+            ->whereNull('read_at')
+            ->where('sender_id', '!=', $profileId)
+            ->groupBy('purchase_id')
+            ->pluck('unread_count', 'purchase_id');
+
+        $totalUnread = $unreadCounts->sum();
+
+        return view('mypage', compact('profile', 'tab', 'sellItems', 'buyItems', 'chatItems', 'unreadCounts', 'totalUnread'));
     }
 }
