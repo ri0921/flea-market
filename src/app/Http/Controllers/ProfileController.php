@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Profile;
 use App\Models\Purchase;
+use App\Models\Chat;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProfileRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
@@ -55,13 +57,15 @@ class ProfileController extends Controller
             $query->whereHas('item', function ($q) use ($profileId) {
                 $q->where('profile_id', $profileId);
             })
-            ->orWhere('profile_id', $profileId);
+                ->orWhere('profile_id', $profileId);
         })
-        ->whereDoesntHave('reviewsWritten', function ($q) use ($profileId) {
-            $q->where('reviewer_id', $profileId);
-        })
-        ->with(['item', 'reviewsWritten'])
-        ->latest()->get();
+            ->whereDoesntHave('reviewsWritten', function ($q) use ($profileId) {
+                $q->where('reviewer_id', $profileId);
+            })
+            ->with(['item', 'reviewsWritten'])
+            ->withMax('chats', 'created_at')
+            ->orderByDesc('chats_max_created_at')
+            ->get();
 
         $chatItemIds = $chatItems->pluck('id');
         $unreadCounts = \DB::table('chats')
