@@ -66,4 +66,12 @@ class ChatController extends Controller
         Chat::create($data);
         return redirect('/mypage/chat/' . $item->id);
     }
+
+    public function edit(ChatRequest $request, Chat $chat)
+    {
+        $chat->message = $request->message;
+        $chat->save();
+
+        return redirect()->back()->with('chat', $chat);
+    }
 }
