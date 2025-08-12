@@ -25,9 +25,27 @@
             </div>
             <h2 class="title">「{{ $partner->name }}」さんとの取引画面</h2>
             <div class="button">
-                <button class="completed-button">取引を完了する</button>
+                <button class="completed-button" id="openModalBtn">取引を完了する</button>
+            </div>
+            <!-- モーダル -->
+            <div id="ratingModal" class="modal hidden">
+                <div class="modal-content">
+                    <p class="completed-message">取引が完了しました。</p>
+                    <p class="rating-message">今回の取引相手はどうでしたか？</p>
+                    <div class="stars">
+                        @for ($i = 1; $i <= 5; $i++)
+                            <span class="star" data-value="{{ $i }}">&#9733;</span>
+                        @endfor
+                    </div>
+                    <form class="rating-form" action="" method="POST">
+                        @csrf
+                        <input type="hidden" name="rating" id="ratingValue">
+                        <button type="submit" class="send-rating">送信する</button>
+                    </form>
+                </div>
             </div>
         </header>
+
         <section class="item-info">
             <img class="item-image" src="{{ Storage::url($item->image) }}" alt="商品画像" width="100%">
             <div class="item-detail">
@@ -110,6 +128,7 @@
 </div>
 
 <script>
+    // 画像プレビュー
     const fileInput = document.getElementById('file-input');
     const imagePreview = document.getElementById('add-image');
 
@@ -125,6 +144,7 @@
         }
     });
 
+    // メッセージの保持
     const currentItemId = @json($item->id);
     document.querySelectorAll('.chat-link').forEach(link => {
         link.addEventListener('click', function(event) {
@@ -139,21 +159,40 @@
         });
     });
 
+    // メッセージ編集フォーム
     document.querySelectorAll('.edit').forEach(button => {
-    button.addEventListener('click', e => {
-        const id = e.target.dataset.id;
-        document.getElementById(`message-text-${id}`).style.display = 'none';
-        document.getElementById(`edit-form-${id}`).style.display = 'inline-block';
+        button.addEventListener('click', e => {
+            const id = e.target.dataset.id;
+            document.getElementById(`message-text-${id}`).style.display = 'none';
+            document.getElementById(`edit-form-${id}`).style.display = 'inline-block';
+        });
     });
-});
 
-document.querySelectorAll('.cancel-edit').forEach(button => {
-    button.addEventListener('click', e => {
-        const id = e.target.dataset.id;
-        document.getElementById(`message-text-${id}`).style.display = 'inline';
-        document.getElementById(`edit-form-${id}`).style.display = 'none';
+    document.querySelectorAll('.cancel-edit').forEach(button => {
+        button.addEventListener('click', e => {
+            const id = e.target.dataset.id;
+            document.getElementById(`message-text-${id}`).style.display = 'inline';
+            document.getElementById(`edit-form-${id}`).style.display = 'none';
+        });
     });
-});
 
+    // モーダル
+    document.getElementById('openModalBtn').addEventListener('click', function() {
+        document.getElementById('ratingModal').classList.remove('hidden');
+    });
+
+    document.querySelectorAll('.star').forEach(star => {
+        star.addEventListener('click', function() {
+            let value = this.getAttribute('data-value');
+            document.getElementById('ratingValue').value = value;
+
+            document.querySelectorAll('.star').forEach(s => {
+                s.classList.remove('selected');
+                if (s.getAttribute('data-value') <= value) {
+                    s.classList.add('selected');
+                }
+            });
+        });
+    });
 </script>
 @endsection
