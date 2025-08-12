@@ -18,7 +18,11 @@
     <div class="tabs">
         <a class="tab-button {{ $tab === 'sell' ? 'active' : '' }}" href="/mypage?tab=sell">出品した商品</a>
         <a class="tab-button {{ $tab === 'buy' ? 'active' : '' }}" href="/mypage?tab=buy">購入した商品</a>
-        <a class="tab-button {{ $tab === 'chat' ? 'active' : '' }}" href="/mypage?tab=chat">取引中の商品</a>
+        <a class="tab-button {{ $tab === 'chat' ? 'active' : '' }}" href="/mypage?tab=chat">取引中の商品
+            @if($totalUnread > 0)
+                <span class="total-unread-badge">{{ $totalUnread }}</span>
+            @endif
+        </a>
     </div>
     <div class="tab-content">
         @if ($tab === 'sell' && $sellItems->isNotEmpty())
@@ -53,6 +57,11 @@
             <li class="list-card">
                 <a class="item-link" href="/mypage/chat/{{ $purchase->item->id }}">
                     <img class="card__image" src="{{ Storage::url($purchase->item->image) }}" alt="商品画像" width="100%">
+                    @if(isset($unreadCounts[$purchase->id]) && $unreadCounts[$purchase->id] > 0)
+                        <div class="unread-badge">
+                            {{ $unreadCounts[$purchase->id] }}
+                        </div>
+                    @endif
                     <p class="card__title">{{ $purchase->item->name }}</p>
                 </a>
             </li>
