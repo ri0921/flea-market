@@ -1,20 +1,5 @@
 # coachtechフリマ
 
-## 概要
-
-「coachtechフリマ」は、ある企業が開発した独自のフリマアプリです。
-10〜30代の社会人をターゲットに、誰でも簡単にアイテムの出品・購入ができることを目的としています。
-
-- **目標**：初年度でユーザー数 1,000人の達成
-- **特徴**
-  - 出品・購入機能
-  - ユーザー認証（Fortify）
-  - Stripe による決済機能
-  - 開発用メール確認（MailHog）
-- **使用技術**：Laravel / Fortify / MySQL / Stripe / Docker
-
----
-
 ## 環境構築
 
 ### Dockerビルド
@@ -40,13 +25,17 @@ composer install
 ```
 cp .env.example .env
 ```
-```
-php artisan config:clear
-php artisan config:cache
-```
+.envファイルに基本設計書の最下部に記載のSTRIPE_KEYとSTRIPE_SECRETを追記してください。
 * アプリケーションキーの生成
 ```
 php artisan key:generate
+```
+* キャッシュのクリア
+```
+php artisan config:clear
+```
+```
+php artisan config:cache
 ```
 * マイグレーションの実行
 ```
@@ -63,6 +52,12 @@ php artisan storage:link
 * 画像をstorageディレクトリにコピー
 ```
 mkdir -p src/storage/app/public/img && cp -r src/public/img/* src/storage/app/public/img/
+```
+
+### MailHog
+* MailHogの起動
+```
+docker compose up -d mailhog
 ```
 
 ### テスト用データベースの作成
@@ -90,13 +85,6 @@ php artisan key:generate --env=testing
 ```
 php artisan migrate --env=testing
 ```
-
-### MailHog
-* MailHogの起動
-```
-docker compose up -d mailhog
-```
-
 
 ## テストアカウント情報
 
