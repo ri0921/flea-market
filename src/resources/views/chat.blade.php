@@ -9,10 +9,10 @@
     <div class="sidebar">
         <p class="others-chat">その他の取引</p>
         <ul class="chat-menu">
-            @foreach ($chatItems as $purchase)
+            @foreach ($chatItems as $chatItem)
             <li class="chat-list">
-                <a class="chat-link" href="/mypage/chat/{{ $purchase->id }}">
-                    {{ $purchase->item->name }}
+                <a class="chat-link" href="/mypage/chat/{{ $chatItem->id }}">
+                    {{ $chatItem->item->name }}
                 </a>
             </li>
             @endforeach
@@ -150,7 +150,7 @@
     });
 
     // メッセージの保持
-    const currentItemId = @json($purchase->id);
+    const currentPurchaseId = @json($purchase->id);
     document.querySelectorAll('.chat-link').forEach(link => {
         link.addEventListener('click', function(event) {
             event.preventDefault();
@@ -159,7 +159,7 @@
 
             const url = new URL(this.href, window.location.origin);
             url.searchParams.set('draft', draftText);
-            url.searchParams.set('from_purchase_id', currentItemId);
+            url.searchParams.set('from_purchase_id', currentPurchaseId);
             window.location.href = url.toString();
         });
     });

@@ -42,12 +42,13 @@ class ChatController extends Controller
             $partner = $purchase->profile;
         }
 
-        if ($request->has('draft') && $request->has('from_purchase_id')) {
-            session(['chat_draft_purchase_'. $request->from_purchase_id => $request->draft]);
+        // 下書きをセッションに保存
+        if ($request->has('draft') && $request->has('from_purchase_id') && $request->from_purchase_id != $purchase->id) {
+            session(['chat_draft_purchase_'. $request->from_purchase_id => urldecode($request->draft)]);
         }
-
         $draft = session('chat_draft_purchase_'. $purchase->id, '');
 
+        // 既読処理
         Chat::where('purchase_id', $purchase->id)
             ->whereNull('read_at')
             ->where('sender_id', '!=', $profileId)
@@ -62,17 +63,26 @@ class ChatController extends Controller
     {
         $item = $purchase->item;
         $profile = Auth::user()->profile;
+        if ($purchase->profile->id === $profile->id) {
+            $partner = $item->profile;
+        } else {
+            $partner = $purchase->profile;
+        }
 
         $data = [
             'purchase_id' => $purchase->id,
             'sender_id' => $profile->id,
-            'receiver_id' => $item->profile->id,
+            'receiver_id' => $partner->id,
             'message' => $request->input('message'),
         ];
         if ($request->hasFile('message_image')) {
             $data['message_image'] = $request->file('message_image')->store('img', 'public');
         }
         Chat::create($data);
+
+        // 送信後、下書きメッセージ削除
+        session()->forget('chat_draft_purchase_' . $purchase->id);
+
         return redirect('/mypage/chat/' . $purchase->id);
     }
 
