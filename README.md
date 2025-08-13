@@ -91,6 +91,13 @@ php artisan key:generate --env=testing
 php artisan migrate --env=testing
 ```
 
+### MailHog
+* MailHogの起動
+```
+docker compose up -d mailhog
+```
+
+
 ## テストアカウント情報
 
 - **user01**

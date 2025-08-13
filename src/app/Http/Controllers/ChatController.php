@@ -8,6 +8,8 @@ use App\Models\Item;
 use App\Models\Purchase;
 use App\Models\Chat;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\TransactionCompletedMail;
+use Illuminate\Support\Facades\Mail;
 
 class ChatController extends Controller
 {
@@ -93,6 +95,9 @@ class ChatController extends Controller
     {
         $purchase->completed_at = now();
         $purchase->save();
+
+        $sellerEmail = $purchase->item->profile->user->email;
+        Mail::to($sellerEmail)->send(new TransactionCompletedMail($purchase));
 
         return redirect('/mypage/chat/'. $purchase->id);
     }
